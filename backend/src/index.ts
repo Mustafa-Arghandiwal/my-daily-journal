@@ -14,7 +14,7 @@ app.get('/msg', (req, res) => {
 	res.json({ msg: "This is coming from the /msg route!" })
 })
 app.post('/add', (req, res) => {
-	const mutated = req.body.name.split('').map((c: string) => {
+	const mutated = req.body.lname.split('').map((c: string) => {
 		if (c === 'a') {
 			return '_'
 		} else { return c }
