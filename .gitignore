@@ -31,3 +31,7 @@ lerna-debug.log*
 dist-ssr
 *.local
 
+*.db
+*.db-shm
+*.db-wal
+
