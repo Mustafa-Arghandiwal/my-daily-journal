@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
+import MainLayout from "../layouts/MainLayout";
+
 
 export default function Home() {
 
 
 	return (
-		<>
-			MY JOURNAL
-			<hr />
+		<MainLayout>
+			<div className="absolute inset-0 -z-10 h-full w-full bg-[#f6f4f1] bg-[radial-gradient(#cbcfd5_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+
 			<Link to='/'>Home</Link> <br />
 			<Link to='/signup'>Sign Up</Link>
 
+			<p className="font-comic-neue  text-2xl">This is the story about a man called ganjman</p>
+			<p className="font-patrick-hand font-bold text-2xl">This is the story about a man called ganjman</p>
 			{/* <form onSubmit={(e) => { */}
 			{/* 	e.preventDefault() */}
 			{/* 	fetch('http://localhost:3000/auth/register', { */}
@@ -28,6 +32,6 @@ export default function Home() {
 			{/* 	<button className="border rounded-sm p-1" type="submit">Sign in</button> */}
 			{/* </form> */}
 			{/* <div className="temp">{data}</div> */}
-		</>
+		</MainLayout>
 	)
 }

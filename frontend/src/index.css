@@ -1,12 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import "tailwindcss";
 
+
+@theme {
+	--font-patrick-hand: "Patrick Hand", system-ui;
+	--font-comic-neue: "Comic Neue", system-ui;
+}
+
 :root {
-	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: "Comic Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+	background-color: #f6f4f1;
+	color: black;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -16,9 +25,4 @@
 
 body {
 	margin: 0;
-}
-
-.temp {
-	border: 1px solid red;
-	margin-top: 40px;
 }
