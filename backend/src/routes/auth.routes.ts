@@ -4,7 +4,7 @@ const router = Router()
 
 
 router.post('/register', (req, res) => {
-	res.send('REGISTERED!')
+	res.json({ message: 'registered' })
 })
 
 router.post('/login', (req, res) => {

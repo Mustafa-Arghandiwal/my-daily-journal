@@ -11,6 +11,7 @@ app.use(express.json())
 
 
 
+app.get('/msg', (req, res) => res.json({ msg: "hi there from /msg route!" }))
 app.use('/auth', router)
 
 
