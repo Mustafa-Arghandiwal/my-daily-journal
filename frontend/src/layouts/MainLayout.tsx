@@ -14,14 +14,14 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
 			<header className="flex justify-between items-center px-6 py-3 border-b-3">
 				<Link to="/" className="flex gap-3 items-center">
-					<div className="border p-1 rounded-md shadow-[3px_3px_0px_black]">
+					<div className="bg-white border p-1 rounded-md shadow-[3px_3px_0px_black]">
 						<Notebook size={18} />
 
 					</div>
 
 					<p className="font-bold">My Journal</p>
 				</Link>
-				<div className="border-2 shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
+				<div className="bg-white border-2 shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
 					<Flame size={20} className="text-orange-500" />
 					12 Days
 				</div>
@@ -34,7 +34,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
 			</header>
 
 			<main className=" relative">{children}</main>
-			<footer className="border grid place-items-center bg-white py-8">
+			<footer className="border grid place-items-center bg-white py-4">
 				<div className="flex gap-3">
 
 					<a href="https://github.com/Mustafa-Arghandiwal" target="_blank">
@@ -43,11 +43,11 @@ export default function MainLayout({ children }: PropsWithChildren) {
 					<a href="https://x.com/_its_mustafa" target="_blank">
 						<Twitter size={18} />
 					</a>
-					<a href="https://x.com/_its_mustafa" target="_blank">
+					<a href="mailto:hi@arghandiwal.dev">
 						<Mail size={18} />
 					</a>
 				</div>
-				<p className="tracking-widest mt-4">&copy; {new Date().getFullYear()} My Journal</p>
+				<p className="tracking-widest text-xs mt-2">&copy; {new Date().getFullYear()} My Journal</p>
 
 			</footer>
 		</>
