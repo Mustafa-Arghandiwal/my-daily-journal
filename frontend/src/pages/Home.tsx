@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import { Pencil } from "lucide-react";
 import Entry from "../components/Entry";
@@ -14,6 +13,8 @@ export default function Home() {
 
 
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [feeling, setFeeling] = useState("")
+	const [content, setContent] = useState("")
 
 	return (
 		<MainLayout>
@@ -21,9 +22,10 @@ export default function Home() {
 
 
 			<section className="max-w-200 px-2  mx-auto py-8">
+				<h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1>
 				<h2 className="text-5xl text-center">{greetingMsg}</h2>
 				<div className="flex justify-center gap-2 flex-col  items-center mt-8">
-					<p className="font-bold text-xl">Let's write something</p>
+					<p className="font-bold text-xl">Let's write something everyday, even if it's one sentence.</p>
 					<button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black"
 						onClick={() => setIsModalOpen(true)}>
 						<Pencil />
@@ -40,7 +42,9 @@ export default function Home() {
 
 
 
-				<EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+				<EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+					feeling={feeling} setFeeling={setFeeling}
+					content={content} setContent={setContent} />
 
 			</section>
 

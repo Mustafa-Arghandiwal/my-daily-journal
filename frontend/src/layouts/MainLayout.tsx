@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
-import type { PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 import { Notebook } from "lucide-react";
-import { Flame } from "lucide-react";
-import { Sun } from "lucide-react";
-import { Moon } from "lucide-react"
-import { Github } from "lucide-react";
-import { Twitter } from "lucide-react";
-import { Mail } from "lucide-react";
+import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
+import SignUpModal from "../components/SignUpModal";
 export default function MainLayout({ children }: PropsWithChildren) {
+
+	const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
 
 	return (
 		<>
@@ -23,17 +21,21 @@ export default function MainLayout({ children }: PropsWithChildren) {
 				</Link>
 				<div className="bg-white border-2 shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
 					<Flame size={20} className="text-orange-500" />
-					12 Days
+					0 Days
 				</div>
 				<div className="flex items-center gap-4">
 					<div className="border-2 rounded-full w-8 h-8 grid place-items-center ">
 						<Moon size={18} />
 					</div>
-					<Link to='/signup' className="font-bold border-2 px-2 py-0.5 rounded-full">Sign Up</Link>
+					<button onClick={() => setIsSignUpModalOpen(true)} className="font-bold cursor-pointer border-2 px-2 py-0.5 rounded-full">Sign Up</button>
 				</div>
 			</header>
 
-			<main className=" relative">{children}</main>
+			<main className=" relative">
+
+				<SignUpModal isSignUpModalOpen={isSignUpModalOpen} setIsSignUpModalOpen={setIsSignUpModalOpen} />
+				{children}
+			</main>
 			<footer className="border grid place-items-center bg-white py-4">
 				<div className="flex gap-3">
 
