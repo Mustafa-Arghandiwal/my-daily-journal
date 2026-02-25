@@ -9,30 +9,23 @@ import { useState } from "react";
 export default function Home() {
 
 	const currentHour = new Date().getHours()
-	const greetingMsg =
-		currentHour < 12
-			? "Buenos días"
-			: currentHour < 18
-				? "Buenas tardes"
-				: "Buenas noches"
+	const greetingMsg = currentHour < 12 ? "Buenos días" : currentHour < 18 ? "Buenas tardes" : "Buenas noches"
 
 
+
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	return (
 		<MainLayout>
 			<div className="absolute inset-0 -z-10 h-full w-full bg-[#f6f4f1] bg-[radial-gradient(#cbcfd5_1px,transparent_1px)] bg-size-[16px_16px]"></div>
 
-			{/* <Link to='/'>Home</Link> <br /> */}
-			{/* <Link to='/signup'>Sign Up</Link> */}
-			{/**/}
-			{/* <p className="font-comic-neue  text-2xl">This is the story about a man called ganjman</p> */}
-			{/* <p className="font-patrick-hand font-bold text-2xl">This is the story about a man called ganjman</p> */}
 
 			<section className="max-w-200 px-2  mx-auto py-8">
 				<h2 className="text-5xl text-center">{greetingMsg}</h2>
-				<div className="flex  justify-between items-center">
+				<div className="flex justify-center gap-2 flex-col  items-center mt-8">
 					<p className="font-bold text-xl">Let's write something</p>
-					<button className="border flex gap-2 p-2 rounded-md text-white bg-black">
+					<button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black"
+						onClick={() => setIsModalOpen(true)}>
 						<Pencil />
 						New Entry
 					</button>
@@ -47,7 +40,7 @@ export default function Home() {
 
 
 
-				<EntryModal />
+				<EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
 			</section>
 

@@ -1,10 +1,13 @@
 import { X } from "lucide-react"
-import { useState } from "react"
 
+type Props = {
+	isModalOpen: boolean,
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export default function EntryModal() {
-	const [isModalOpen, setIsModalOpen] = useState(true)
+export default function EntryModal({ isModalOpen, setIsModalOpen }: Props) {
 	if (!isModalOpen) return null
+
 	return (
 		<div className="absolute max-w-2xl w-full min-h-72 top-36 right-1/2 translate-x-1/2 bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
@@ -14,7 +17,6 @@ export default function EntryModal() {
 			>
 				<X />
 			</button>
-
 
 			<div>
 				I am feeling{" "}
