@@ -1,10 +1,10 @@
-import express from "express";
 import { Router } from "express"
 const router = Router()
 import db from "../db";
+import bcrypt from 'bcrypt'
 
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
 	try {
 		const { name, email, password, confirmPassword } = req.body
 		if (!name || !email || !password || !confirmPassword) {
@@ -12,11 +12,17 @@ router.post('/register', (req, res) => {
 		}
 
 		const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email)
-		console.log(existingUser)
+		// console.log(existingUser)//object of user
 		if (existingUser) {
 			return res.status(400).json({ error: 'Email already registered.' })
 		}
 
+		const hashedPassword = await bcrypt.hash(password, 10)
+		const statement = db.prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)')
+		statement.run(name, email, hashedPassword)
+		return res.status(201).json({
+			message: "User registered successfully!"
+		})
 
 
 		res.json({ message: 'registered!' })
