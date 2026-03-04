@@ -46,7 +46,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 
 			const result = await res.json()
 			if (!res.ok) {
-				setErrors(result.errors)
+				setErrors(result.errors ?? {})
 			} else {
 				setMsg(result.message)
 				form.reset()
