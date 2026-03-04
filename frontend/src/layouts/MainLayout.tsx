@@ -27,7 +27,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
 					<div className="border-2 rounded-full w-8 h-8 grid place-items-center ">
 						<Moon size={18} />
 					</div>
-					<button onClick={() => setIsSignUpModalOpen(true)} className="font-bold cursor-pointer border-2 px-2 py-0.5 rounded-full">Sign Up</button>
+					<button onClick={() => setIsSignUpModalOpen(true)} className="font-bold cursor-pointer border-2 px-2 py-0.5 rounded-full">Log in</button>
 				</div>
 			</header>
 
