@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
 		const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email)
 
 		if (existingUser) {
-			return res.status(400).json({ error: 'Email already registered.' })
+			return res.status(400).json({ message: 'Email already registered.' })
 		}
 
 
@@ -51,7 +51,43 @@ router.post('/register', async (req, res) => {
 	}
 })
 
-router.post('/login', (req, res) => {
-	res.send('LOGGED IN!')
+router.post('/login', async (req, res) => {
+	const LoginCreds = z.object({
+		email: z.email().min(1, "Email is required"),
+		password: z.string().min(1, "Password is required")
+	})
+
+	const result = LoginCreds.safeParse(req.body)
+	if (!result.success) {
+		let ErrorsObject: Record<string, string> = {}
+		result.error.issues.forEach(issue => {
+			const key = issue.path[0] ?? 'unknown'
+			ErrorsObject[String(key)] = issue.message
+
+		})
+		return res.status(400).json({ errors: ErrorsObject })
+
+	}
+
+	const { email, password } = result.data
+
+	type User = {
+		id: number,
+		name: string,
+		email: string,
+		password: string,
+		created_at: string
+	}
+	const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as User | undefined
+	if (!existingUser) {
+		return res.status(401).json({ message: "Invalid email or password." })
+	}
+	const passwordMatch = await bcrypt.compare(password, existingUser.password)
+	if (!passwordMatch) {
+		return res.status(401).json({ message: "Invalid email or password." })
+	}
+	console.log(passwordMatch)
+
+
 })
 export default router

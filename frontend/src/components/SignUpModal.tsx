@@ -94,8 +94,11 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 			if (!res.ok) {
 				if (result.errors) {
 					setLoginErrors(result.errors)
+					console.log('here')
+
 				} else {
 					setMsg(result.message)
+					setLoginErrors({})
 				}
 			} else {
 				form.reset()
@@ -108,8 +111,43 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 
 	}
 	return (
-		isSignUp ?
-			<form onSubmit={signUp} className=" bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md flex flex-col gap-2 w-72 sm:w-96">
+		<div>
+			<form key="login" onSubmit={login} className={` bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md
+				flex flex-col gap-2 w-72 sm:w-96 ${isSignUp ? "hidden" : ""}`}>
+
+				<button className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
+					<X />
+				</button>
+
+
+				<div className="flex gap-4 items-baseline justify-center">
+					<h3 className="font-bold text-3xl ">Log in</h3>
+					<button type="button" onClick={() => {
+						setIsSignUp(true)
+						// setErrors({})
+						// setLoginErrors({})
+						setMsg('')
+					}} className="font-bold cursor-pointer">Sign up</button>
+				</div>
+
+				<label className="block  ">
+					Email
+					<input type="text" name="email" className="block px-1 border rounded-md w-full " />
+					<p className="text-sm text-red-600 ">{loginErrors.email}</p>
+				</label>
+				<label className="block  ">
+					Password
+					<input type="password" name="password" className="block px-1 border rounded-md w-full" />
+					<p className="text-sm text-red-600 ">{loginErrors.password}</p>
+				</label>
+
+				<SubmitButton text="Log in" />
+				<p className="text-center text-green-500">{msg}</p>
+
+			</form>
+
+			<form key="signup" onSubmit={signUp} className={` bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md flex
+				flex-col gap-2 w-72 sm:w-96 ${!isSignUp ? "hidden" : ""}`}>
 
 				<button className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
 					<X />
@@ -118,7 +156,13 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 
 
 				<div className="flex gap-4 items-baseline justify-center">
-					<button type="button" onClick={() => setIsSignUp(false)} className="font-bold cursor-pointer">Log in</button>
+					<button type="button" onClick={() => {
+						setIsSignUp(false)
+						setErrors({})
+						setLoginErrors({})
+						setMsg('')
+					}}
+						className="font-bold cursor-pointer">Log in</button>
 					<h3 className="font-bold text-3xl ">Sign up</h3>
 				</div>
 
@@ -148,33 +192,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 				<p className="text-center text-green-500">{msg}</p>
 
 			</form>
-			:
-			<form onSubmit={login} className=" bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md flex flex-col gap-2 w-72 sm:w-96">
 
-				<button className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
-					<X />
-				</button>
-
-
-				<div className="flex gap-4 items-baseline justify-center">
-					<h3 className="font-bold text-3xl ">Log in</h3>
-					<button type="button" onClick={() => setIsSignUp(true)} className="font-bold cursor-pointer">Sign up</button>
-				</div>
-
-				<label className="block  ">
-					Email
-					<input type="text" name="email" className="block px-1 border rounded-md w-full " />
-					<p className="text-sm text-red-600 ">{loginErrors.email}</p>
-				</label>
-				<label className="block  ">
-					Password
-					<input type="password" name="password" className="block px-1 border rounded-md w-full" />
-					<p className="text-sm text-red-600 ">{loginErrors.password}</p>
-				</label>
-
-				<SubmitButton text="Log in" />
-				<p className="text-center text-green-500">{msg}</p>
-
-			</form>
+		</div>
 	)
 }
