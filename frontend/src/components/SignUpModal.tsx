@@ -30,12 +30,12 @@ function SubmitButton({ text = "Submit" }: SubmitButtonProps) {
 
 export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }: Props) {
 
-	if (!isSignUpModalOpen) return null
 	const [isSignUp, setIsSignUp] = useState(false)
-
 	const [msg, setMsg] = useState('')
 	const [errors, setErrors] = useState<ErrorType>({})
 	const [loginErrors, setLoginErrors] = useState<LoginErrorType>({})
+
+	if (!isSignUpModalOpen) return null
 
 	const signUp = async (e: React.SubmitEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -83,6 +83,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 		const signUpData = Object.fromEntries(formData)
 		try {
 			const res = await fetch('http://localhost:3000/auth/login', {
+				credentials: "include",
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -102,8 +103,11 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 				}
 			} else {
 				form.reset()
-				// setMsg(result.message)
 				setLoginErrors({})
+				setMsg(result.message)
+				setIsSignUpModalOpen(false)
+
+
 			}
 		} catch (err) {
 			console.log(err)
@@ -121,7 +125,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 
 
 				<div className="flex gap-4 items-baseline justify-center">
-					<h3 className="font-bold text-3xl ">Log in</h3>
+					<h3 className="font-bold text-3xl cursor-pointer">Log in</h3>
 					<button type="button" onClick={() => {
 						setIsSignUp(true)
 						// setErrors({})
@@ -163,7 +167,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
 						setMsg('')
 					}}
 						className="font-bold cursor-pointer">Log in</button>
-					<h3 className="font-bold text-3xl ">Sign up</h3>
+					<h3 className="font-bold text-3xl cursor-pointer">Sign up</h3>
 				</div>
 
 				<label className="block ">
