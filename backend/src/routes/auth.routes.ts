@@ -76,9 +76,8 @@ router.post('/login', async (req, res) => {
 		name: string,
 		email: string,
 		password: string,
-		created_at: string
 	}
-	const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as User | undefined
+	const existingUser = db.prepare('SELECT id, name, email, password FROM users WHERE email = ?').get(email) as User | undefined
 	if (!existingUser) {
 		return res.status(401).json({ message: "Invalid email or password." })
 	}
@@ -86,7 +85,8 @@ router.post('/login', async (req, res) => {
 	if (!passwordMatch) {
 		return res.status(401).json({ message: "Invalid email or password." })
 	}
-	console.log(passwordMatch)
+	req.session.userId = existingUser.id
+	res.status(200).json({ success: true, message: "Login successful." })
 
 
 })
