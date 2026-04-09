@@ -7,67 +7,76 @@ import { useState } from "react";
 
 export default function Home() {
 
-	const currentHour = new Date().getHours()
-	const greetingMsg = currentHour < 12 ? "Buenos días" : currentHour < 18 ? "Buenas tardes" : "Buenas noches"
+    const currentHour = new Date().getHours()
+    const greetingMsg = currentHour < 12 ? "Buenos días" : currentHour < 18 ? "Buenas tardes" : "Buenas noches"
 
 
 
-	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [feeling, setFeeling] = useState("")
-	const [content, setContent] = useState("")
-
-	return (
-		<MainLayout>
-			<div className="absolute inset-0 -z-10 h-full w-full bg-[#f6f4f1] bg-[radial-gradient(#cbcfd5_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [feeling, setFeeling] = useState("")
+    const [content, setContent] = useState("")
+    const [username, setUsername] = useState("")
 
 
-			<section className="max-w-200 px-2  mx-auto py-8">
-				{/* <h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1> */}
-				<h2 className="text-5xl text-center">{greetingMsg}</h2>
-				<div className="flex justify-center gap-2 flex-col  items-center mt-8">
-					<p className="font-bold text-xl">Let's write something everyday, even if it's one sentence.</p>
-					<button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black"
-						onClick={() => setIsModalOpen(true)}>
-						<Pencil />
-						New Entry
-					</button>
+    const getUsername = async () => {
 
-				</div>
-				<div className="mt-12 flex flex-col gap-5">
-					<Entry />
-					<Entry />
-					<Entry />
-					<Entry />
-				</div>
+        const username = await fetch('localhost')
+
+    }
 
 
-
-				<EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-					feeling={feeling} setFeeling={setFeeling}
-					content={content} setContent={setContent} />
-
-			</section>
+    return (
+        <MainLayout>
+            <div className="absolute inset-0 -z-10 h-full w-full bg-[#f6f4f1] bg-[radial-gradient(#cbcfd5_1px,transparent_1px)] bg-size-[16px_16px]"></div>
 
 
+            <section className="max-w-200 px-2  mx-auto py-8">
+                {/* <h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1> */}
+                <h2 className="text-5xl text-center">{greetingMsg} {username}</h2>
+                <div className="flex justify-center gap-2 flex-col  items-center mt-8">
+                    <p className="font-bold text-xl">Let's write something everyday, even if it's one sentence.</p>
+                    <button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black"
+                        onClick={() => setIsModalOpen(true)}>
+                        <Pencil />
+                        New Entry
+                    </button>
 
-			{/* <form onSubmit={(e) => { */}
-			{/* 	e.preventDefault() */}
-			{/* 	fetch('http://localhost:3000/auth/register', { */}
-			{/* 		method: 'POST', */}
-			{/* 		headers: { */}
-			{/* 			"Content-Type": "application/json" */}
-			{/* 		}, */}
-			{/* 		body: JSON.stringify(info) */}
-			{/* 	}).then(response => response.json()) */}
-			{/* 		.then(data => { setData(data.message) }) */}
-			{/**/}
-			{/* }} */}
-			{/* 	className="flex flex-col gap-8 mt-10 max-w-100 p-8"> */}
-			{/* 	<input className="border rounded-sm p-1" type="text" name="email" placeholder="Email" onChange={(e) => setInfo({ ...info, email: e.target.value })} value={info.email} /> */}
-			{/* 	<input className="border rounded-sm p-1" type="password" name="password" placeholder="Password" onChange={(e) => setInfo({ ...info, password: e.target.value })} value={info.password} /> */}
-			{/* 	<button className="border rounded-sm p-1" type="submit">Sign in</button> */}
-			{/* </form> */}
-			{/* <div className="temp">{data}</div> */}
-		</MainLayout>
-	)
+                </div>
+                <div className="mt-12 flex flex-col gap-5">
+                    <Entry />
+                    <Entry />
+                    <Entry />
+                    <Entry />
+                </div>
+
+
+
+                <EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                    feeling={feeling} setFeeling={setFeeling}
+                    content={content} setContent={setContent} />
+
+            </section>
+
+
+
+            {/* <form onSubmit={(e) => { */}
+            {/* 	e.preventDefault() */}
+            {/* 	fetch('http://localhost:3000/auth/register', { */}
+            {/* 		method: 'POST', */}
+            {/* 		headers: { */}
+            {/* 			"Content-Type": "application/json" */}
+            {/* 		}, */}
+            {/* 		body: JSON.stringify(info) */}
+            {/* 	}).then(response => response.json()) */}
+            {/* 		.then(data => { setData(data.message) }) */}
+            {/**/}
+            {/* }} */}
+            {/* 	className="flex flex-col gap-8 mt-10 max-w-100 p-8"> */}
+            {/* 	<input className="border rounded-sm p-1" type="text" name="email" placeholder="Email" onChange={(e) => setInfo({ ...info, email: e.target.value })} value={info.email} /> */}
+            {/* 	<input className="border rounded-sm p-1" type="password" name="password" placeholder="Password" onChange={(e) => setInfo({ ...info, password: e.target.value })} value={info.password} /> */}
+            {/* 	<button className="border rounded-sm p-1" type="submit">Sign in</button> */}
+            {/* </form> */}
+            {/* <div className="temp">{data}</div> */}
+        </MainLayout>
+    )
 }

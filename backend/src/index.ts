@@ -17,13 +17,15 @@ app.use(session({
 	saveUninitialized: false,
 	cookie: {
 		httpOnly: true,
-		maxAge: 1000 * 60 * 60
+		maxAge: 1000 * 60 * 60 * 24
 	}
 }))
 
 
 
 app.use('/auth', router)
+
+app.get('/',)
 
 
 app.listen(3000, () => console.log("Servidor ejecutandose en http://localhost:3000"))
