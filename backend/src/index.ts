@@ -6,6 +6,7 @@ import router from "./routes/auth.routes"
 import './db'
 import session from "express-session"
 import dotenv from "dotenv"
+import db from "./db"
 dotenv.config({ quiet: true })
 
 const app = express()
@@ -28,15 +29,15 @@ app.use('/auth', router)
 
 app.get('/api/me', (req, res) => {
     if (req.session.userId) {
+        const user = db.prepare('SELECT id, name, email FROM users WHERE id = ?')
+            .get(req.session.userId)
         res.status(200).json({
             success: true,
-            user: {
-                name: 'Mustafa'
-            }
+            user: user
         })
 
     } else {
-        res.status(401).json({ success: false, msg: 'unauthorized' })
+        res.status(401).json({ success: false })
     }
 
 })

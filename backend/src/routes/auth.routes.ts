@@ -45,7 +45,17 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10)
         const statement = db.prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)')
         statement.run(name, email, hashedPassword)
-        return res.status(201).json({ message: 'User registered successfully.' })
+        type User = {
+            id: number,
+            name: string,
+            email: string,
+        }
+        const addedUser = db.prepare('SELECT id, name, email FROM users where email = ?').get(email) as User | undefined
+        if (!addedUser) {
+            return res.status(500).json({ message: "User creation failed" })
+        }
+        req.session.userId = addedUser.id
+        return res.status(201).json({ message: 'User registered successfully.', user: addedUser })
     } catch (err) {
         console.log(err)
     }
@@ -89,7 +99,7 @@ router.post('/login', async (req, res) => {
     // req.session.save(() => {
     //     res.json({ success: true })
     // })
-    res.status(200).json({ success: true, message: "Login successful.", temp: req.session })
+    res.status(200).json({ success: true, message: "Login successful." })
 
 
 })
