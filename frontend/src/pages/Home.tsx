@@ -2,27 +2,20 @@ import MainLayout from "../layouts/MainLayout";
 import { Pencil } from "lucide-react";
 import Entry from "../components/Entry";
 import EntryModal from "../components/EntryModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../App";
 
 
 export default function Home() {
 
     const currentHour = new Date().getHours()
     const greetingMsg = currentHour < 12 ? "Buenos días" : currentHour < 18 ? "Buenas tardes" : "Buenas noches"
-
-
+    const { user } = useContext(AuthContext)!
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [feeling, setFeeling] = useState("")
     const [content, setContent] = useState("")
-    const [username, setUsername] = useState("")
 
-
-    const getUsername = async () => {
-
-        const username = await fetch('localhost')
-
-    }
 
 
     return (
@@ -32,8 +25,8 @@ export default function Home() {
 
             <section className="max-w-200 px-2  mx-auto py-8">
                 {/* <h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1> */}
-                <h2 className="text-5xl text-center">{greetingMsg} {username}</h2>
-                <div className="flex justify-center gap-2 flex-col  items-center mt-8">
+                <h2 className="text-5xl text-center">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg} </h2>
+                <div className="flex justify-center gap-2 flex-col items-center mt-8">
                     <p className="font-bold text-xl">Let's write something everyday, even if it's one sentence.</p>
                     <button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black"
                         onClick={() => setIsModalOpen(true)}>
