@@ -9,7 +9,16 @@ export default function MainLayout({ children }: PropsWithChildren) {
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
 
-    const { user } = useContext(AuthContext)!
+    const { user, setUser } = useContext(AuthContext)!
+
+    const logout = () => {
+        fetch('http://localhost:3000/auth/logout', {
+            method: "POST",
+            credentials: "include"
+        })
+        setUser(null)
+        window.location.reload()
+    }
     return (
         <>
 
@@ -38,7 +47,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
                             </button>
                             <ul className={`border  absolute invisible opacity-0 ${isProfileMenuOpen ? "visible opacity-100 z-50" : ""} duration-100 whitespace-nowrap rounded-sm -bottom-10 bg-white right-0`}>
                                 <li className="">
-                                    <button className="cursor-pointer px-2 py-1 hover:bg-gray-100 rounded-sm">Log out</button>
+                                    <button onClick={() => logout()} className="cursor-pointer px-2 py-1 hover:bg-gray-100 rounded-sm">Log out</button>
                                 </li>
                             </ul>
                         </div>

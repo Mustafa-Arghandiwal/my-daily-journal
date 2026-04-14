@@ -93,4 +93,15 @@ router.post('/login', async (req, res) => {
 
 
 })
+
+router.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ success: false })
+        }
+        res.clearCookie("connect.sid")
+        return res.json({ success: true })
+    })
+
+})
 export default router
