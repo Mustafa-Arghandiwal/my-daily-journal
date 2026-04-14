@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext, useState, type PropsWithChildren } from "react";
+import { useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
 import SignUpModal from "../components/SignUpModal";
@@ -8,46 +8,68 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
-
     const { user, setUser } = useContext(AuthContext)!
+    const menuRef = useRef<HTMLUListElement | null>(null)
+    const profileBtnRef = useRef<HTMLButtonElement | null>(null)
 
-    const logout = () => {
-        fetch('http://localhost:3000/auth/logout', {
+    const handleClickOutside = (e: MouseEvent) => {
+        const target = e.target as Node
+        if (profileBtnRef.current && menuRef.current &&
+            !profileBtnRef.current.contains(target) &&
+            !menuRef.current.contains(target)
+        ) {
+
+            setIsProfileMenuOpen(false)
+        }
+    }
+    useEffect(() => {
+        if (!isProfileMenuOpen) return
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [isProfileMenuOpen])
+
+
+
+    const logout = async () => {
+        await fetch('http://localhost:3000/auth/logout', {
             method: "POST",
             credentials: "include"
         })
         setUser(null)
-        window.location.reload()
+        // window.location.reload()
     }
+
     return (
         <>
-
             <header className="flex justify-between items-center px-6 py-3 border-b-3">
                 <Link to="/" className="flex gap-3 items-center">
                     <div className="bg-white border p-1 rounded-md shadow-[3px_3px_0px_black]">
                         <Notebook size={18} />
-
                     </div>
 
                     <p className="font-bold">My Journal</p>
                 </Link>
-                <div className="bg-white border-2 shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
-                    <Flame size={20} className="text-orange-500" />
-                    0 Days
-                </div>
+                {user &&
+                    <div className="bg-white border-2 shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
+                        <Flame size={20} className="text-orange-500" />
+                        0 Days
+                    </div>
+                }
+
                 <div className="flex items-center gap-4">
                     <button className="border-2 rounded-full w-8 h-8 grid place-items-center cursor-pointer">
                         <Moon size={18} />
                     </button>
                     {user ?
                         <div className="relative">
-                            <button onClick={() => setIsProfileMenuOpen(prev => !prev)} className="cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full">
+                            <button ref={profileBtnRef} onClick={() => setIsProfileMenuOpen(prev => !prev)} className="cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full">
                                 <UserRound size={18} />
-
                             </button>
-                            <ul className={`border  absolute invisible opacity-0 ${isProfileMenuOpen ? "visible opacity-100 z-50" : ""} duration-100 whitespace-nowrap rounded-sm -bottom-10 bg-white right-0`}>
+
+                            <ul ref={menuRef} className={`border-2 font-bold absolute ${isProfileMenuOpen ? "visible opacity-100 z-50" : "invisible opacity-0"} duration-100 whitespace-nowrap rounded-sm
+                                            top-full mt-1 bg-white right-0`}>
                                 <li className="">
-                                    <button onClick={() => logout()} className="cursor-pointer px-2 py-1 hover:bg-gray-100 rounded-sm">Log out</button>
+                                    <button onClick={() => logout()} className="cursor-pointer px-1.5 py-0.5 hover:bg-gray-100 rounded-sm">Log out</button>
                                 </li>
                             </ul>
                         </div>

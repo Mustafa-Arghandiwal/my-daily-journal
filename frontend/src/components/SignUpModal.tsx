@@ -46,6 +46,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
         try {
             const res = await fetch('http://localhost:3000/auth/register', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -60,9 +61,8 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
                     setMsg(result.message)
                 }
             } else {
-                setMsg(result.message)
-                form.reset()
-                setErrors({})
+                window.location.reload()
+
             }
         } catch (err) {
             console.log(err)
