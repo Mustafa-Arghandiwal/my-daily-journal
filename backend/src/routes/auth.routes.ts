@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
                 const key = issue.path[0] ?? "unknown"
                 errorsObject[String(key)] = issue.message
             })
-            return res.status(400).json({ errors: errorsObject })
+            return res.status(422).json({ errors: errorsObject })
             // errors: result.error.issues.map(issue => {
             // 	return { [String(issue.path[0])]: issue.message }
             // })
@@ -96,10 +96,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).json({ message: "Invalid email or password." })
     }
     req.session.userId = existingUser.id
-    // req.session.save(() => {
-    //     res.json({ success: true })
-    // })
-    res.status(200).json({ success: true, message: "Login successful." })
+    res.status(200).json({ success: true })
 
 
 })

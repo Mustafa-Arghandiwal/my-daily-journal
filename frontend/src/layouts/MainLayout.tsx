@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
-import SignUpModal from "../components/SignUpModal";
+import AuthModal from "../components/AuthModal.tsx";
 import { AuthContext } from "../App";
 export default function MainLayout({ children }: PropsWithChildren) {
 
-    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
     const { user, setUser } = useContext(AuthContext)!
     const menuRef = useRef<HTMLUListElement | null>(null)
@@ -74,7 +74,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
                             </ul>
                         </div>
                         :
-                        <button onClick={() => setIsSignUpModalOpen(true)} className="relative group cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full">
+                        <button onClick={() => setIsAuthModalOpen(true)} className="relative group cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full">
                             <LogIn size={18} />
                             <p className="absolute text-sm bg-black text-white whitespace-nowrap py-1 px-2 -bottom-9 -right-6 shadowmd rounded-sm
                             invisible group group-hover:visible opacity-0 group-hover:opacity-100    duration-150">Log in / Sign up</p>
@@ -83,9 +83,9 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 </div>
             </header>
 
-            <main className=" relative">
+            <main className="relative">
 
-                <SignUpModal isSignUpModalOpen={isSignUpModalOpen} setIsSignUpModalOpen={setIsSignUpModalOpen} />
+                <AuthModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={setIsAuthModalOpen} />
                 {children}
             </main>
             <footer className="border grid place-items-center bg-white py-4">
