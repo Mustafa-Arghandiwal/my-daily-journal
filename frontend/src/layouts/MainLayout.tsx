@@ -36,7 +36,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
             credentials: "include"
         })
         setUser(null)
-        // window.location.reload()
+        window.location.reload()
     }
 
     return (

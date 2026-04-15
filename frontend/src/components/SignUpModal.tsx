@@ -1,6 +1,5 @@
 import { X } from "lucide-react";
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
 
 
 type Props = {
@@ -17,16 +16,7 @@ type LoginErrorType = {
     email?: string,
     password?: string
 }
-type SubmitButtonProps = {
-    text?: string
-}
 
-function SubmitButton({ text = "Submit" }: SubmitButtonProps) {
-    const { pending } = useFormStatus()
-    return <button disabled={pending} className="font-bold w-full  mt-5 cursor-pointer py-1 rounded-md text-white bg-black disabled:bg-gray-300 ">
-        {pending ? "..." : text}
-    </button>
-}
 
 export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }: Props) {
 
@@ -120,7 +110,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
             <form key="login" onSubmit={login} className={` bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md
 				flex flex-col gap-2 w-72 sm:w-96 ${isSignUp ? "hidden" : ""}`}>
 
-                <button className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
+                <button type="button" className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
                     <X />
                 </button>
 
@@ -146,7 +136,10 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
                     <p className="text-sm text-red-600 ">{loginErrors.password}</p>
                 </label>
 
-                <SubmitButton text="Log in" />
+                <button type="submit" className="font-bold w-full mt-5 cursor-pointer py-1 rounded-md text-white bg-black">
+                    Log in
+                </button>
+
                 <p className="text-center text-green-500">{msg}</p>
 
             </form>
@@ -154,7 +147,7 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
             <form key="signup" onSubmit={signUp} className={` bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md flex
 				flex-col gap-2 w-72 sm:w-96 ${!isSignUp ? "hidden" : ""}`}>
 
-                <button className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
+                <button type="button" className="absolute cursor-pointer right-2 top-2" onClick={() => setIsSignUpModalOpen(false)}>
                     <X />
                 </button>
 
@@ -193,7 +186,9 @@ export default function SignUpModal({ isSignUpModalOpen, setIsSignUpModalOpen }:
                 </label>
 
                 {/* <button className="font-bold w-full  mt-5 cursor-pointer py-1 rounded-md text-white bg-black">Sign Up</button> */}
-                <SubmitButton text="Sign up" />
+                <button type="submit" className="font-bold w-full mt-5 cursor-pointer py-1 rounded-md text-white bg-black">
+                    Sign Up
+                </button>
                 <p className="text-center text-green-500">{msg}</p>
 
             </form>
