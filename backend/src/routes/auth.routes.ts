@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
                 const key = issue.path[0] ?? "unknown"
                 errorsObject[String(key)] = issue.message
             })
-            return res.status(422).json({ errors: errorsObject })
+            return res.status(400).json({ errors: errorsObject })
             // errors: result.error.issues.map(issue => {
             // 	return { [String(issue.path[0])]: issue.message }
             // })
@@ -75,6 +75,7 @@ router.post('/login', async (req, res) => {
             ErrorsObject[String(key)] = issue.message
 
         })
+        console.log('hereee')
         return res.status(400).json({ errors: ErrorsObject })
 
     }

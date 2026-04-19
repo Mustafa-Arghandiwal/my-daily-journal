@@ -2,7 +2,8 @@
 
 import express from "express"
 import cors from "cors"
-import router from "./routes/auth.routes"
+import authRoutes from "./routes/auth.routes"
+import entryRoutes from "./routes/entries.routes"
 import './db'
 import session from "express-session"
 import dotenv from "dotenv"
@@ -25,7 +26,8 @@ app.use(session({
 
 
 
-app.use('/auth', router)
+app.use('/auth', authRoutes)
+app.use('/entries', entryRoutes)
 
 app.get('/api/me', (req, res) => {
     if (req.session.userId) {

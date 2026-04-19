@@ -30,7 +30,6 @@ export default function LoginModal() {
             if (!res.ok) {
                 if (result.errors) {
                     setLoginErrors(result.errors)
-
                 } else {
                     setMsg(result.message)
                     setLoginErrors({})
@@ -45,12 +44,12 @@ export default function LoginModal() {
     }
 
     return (
-        <form key="login" onSubmit={login} className={``}>
+        <form onSubmit={login} className={``}>
 
 
             <label className="block  ">
                 Email
-                <input type="text" name="email" className="block px-1 border rounded-md w-full " />
+                <input type="email" name="email" className="block px-1 border rounded-md w-full " />
                 <p className="text-sm text-red-600 ">{loginErrors.email}</p>
             </label>
             <label className="block  ">

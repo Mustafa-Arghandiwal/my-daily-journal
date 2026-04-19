@@ -11,12 +11,7 @@ export default function Home() {
     const currentHour = new Date().getHours()
     const greetingMsg = currentHour < 12 ? "Buenos días" : currentHour < 18 ? "Buenas tardes" : "Buenas noches"
     const { user } = useContext(AuthContext)!
-
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [feeling, setFeeling] = useState("")
-    const [content, setContent] = useState("")
-
-
 
     return (
         <MainLayout>
@@ -28,7 +23,7 @@ export default function Home() {
                 <h2 className="text-5xl text-center capitalize">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg} </h2>
                 <div className="flex justify-center gap-2 flex-col items-center mt-8">
                     <p className="font-bold text-xl">Let's write something everyday, even if it's one sentence.</p>
-                    <button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black"
+                    <button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black cursor-pointer"
                         onClick={() => setIsModalOpen(true)}>
                         <Pencil />
                         New Entry
@@ -44,9 +39,7 @@ export default function Home() {
 
 
 
-                <EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-                    feeling={feeling} setFeeling={setFeeling}
-                    content={content} setContent={setContent} />
+                <EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
             </section>
 
