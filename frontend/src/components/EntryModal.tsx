@@ -5,9 +5,10 @@ import confetti from 'canvas-confetti'
 type Props = {
     isModalOpen: boolean,
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    refreshEntries: () => Promise<void>
 }
 
-export default function EntryModal({ isModalOpen, setIsModalOpen }: Props) {
+export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries }: Props) {
     if (!isModalOpen) return null
 
     const [errors, setErrors] = useState({})
@@ -45,12 +46,16 @@ export default function EntryModal({ isModalOpen, setIsModalOpen }: Props) {
             },
             body: JSON.stringify(entryData)
         })
-        console.log(result.statusText)
+        if (result.status === 401) {
+            console.log('Not authenticated')
+            return
+        }
         const data = await result.json()
         if (!data.success) {
             setErrors(data.errors.fieldErrors)
         } else {
             setErrors({})
+            refreshEntries()
             showConfetti()
             setIsModalOpen(false)
         }
