@@ -1,5 +1,3 @@
-
-
 import express from "express"
 import cors from "cors"
 import authRoutes from "./routes/auth.routes"
@@ -8,26 +6,30 @@ import './db'
 import session from "express-session"
 import dotenv from "dotenv"
 import db from "./db"
+import SqliteStoreFactory from "better-sqlite3-session-store"
 dotenv.config({ quiet: true })
+
+const SqliteStore = SqliteStoreFactory(session)
 
 const app = express()
 app.use(cors({ origin: ['http://localhost:5173'], credentials: true }))
 app.use(express.json())
 app.use(session({
+    store: new SqliteStore({
+        client: db,
+        expired: {
+            clear: true,
+            intervalMs: 1000 * 60 * 15
+        }
+    }),
     secret: process.env.SESSION_SECRET || "some-random-secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24
-        // maxAge: 1000 * 10
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }))
-
-
-
-app.use('/auth', authRoutes)
-app.use('/entries', entryRoutes)
 
 app.get('/api/me', (req, res) => {
     if (req.session.userId) {
@@ -45,4 +47,6 @@ app.get('/api/me', (req, res) => {
 })
 
 
+app.use('/auth', authRoutes)
+app.use('/entries', entryRoutes)
 app.listen(3000, () => console.log("Servidor ejecutandose en http://localhost:3000"))

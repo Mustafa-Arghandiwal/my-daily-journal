@@ -3,7 +3,6 @@ import type { EntryType } from "../types/entry"
 
 export default function Entry({ entry, refreshEntries }: { entry: EntryType, refreshEntries: () => Promise<void> }) {
 
-    console.log(entry.id)
     const deleteEntry = async (id: number) => {
         const result = await fetch(`http://localhost:3000/entries/${id}`, {
             method: "DELETE",
