@@ -2,6 +2,15 @@ import { Request, Response } from 'express'
 import z from "zod"
 import db from "../db"
 
+type EntryType = {
+    id: number,
+    user_id: number,
+    title: string,
+    feeling: string,
+    content: string,
+    created_at: string,
+    updated_at: string
+}
 export const createEntry = async (req: Request, res: Response) => {
 
     if (!req.session.userId) {
@@ -39,4 +48,28 @@ export const getUserEntries = async (req: Request, res: Response) => {
 
     const entries = db.prepare('SELECT id, title, feeling, content, created_at FROM entries WHERE user_id = ? ORDER BY created_at DESC').all(userId)
     res.status(200).json(entries)
+}
+
+export const deleteEntry = async (req: Request, res: Response) => {
+
+    const userId = req.session.userId
+    if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' })
+    }
+    const entryId = Number(req.params.id)
+    const entry = db.prepare('SELECT * FROM entries WHERE id = ?').get(entryId) as EntryType | undefined
+    if (!entry) {
+        return res.status(404).json({ success: false, message: 'Not found' })
+    }
+    if (entry.user_id !== userId) {
+        return res.status(403).json({ success: false, message: 'Forbidden' })
+    }
+    const result = db.prepare('DELETE FROM entries WHERE id = ?').run(entryId)
+    if (result.changes > 0) {
+        res.status(200).json({ success: true })
+    } else {
+        res.status(404).json({ success: false, message: 'Not found or already deleted.' })
+    }
+
+
 }

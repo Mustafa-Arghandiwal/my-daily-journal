@@ -55,7 +55,7 @@ export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries
             setErrors(data.errors.fieldErrors)
         } else {
             setErrors({})
-            refreshEntries()
+            await refreshEntries()
             showConfetti()
             setIsModalOpen(false)
         }
@@ -67,9 +67,9 @@ export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries
 
 
     return (
-        <form onSubmit={createEntry} className="absolute max-w-2xl w-full min-h-72 top-36 right-1/2 translate-x-1/2 bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
+        <form onSubmit={createEntry} className="absolute max-w-2xl w-full min-h-72 top-22 right-1/2 translate-x-1/2 bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
-            <button className="absolute cursor-pointer right-2 top-2"
+            <button type="button" className="absolute cursor-pointer right-2 top-2"
                 onClick={() => setIsModalOpen(false)}
             >
                 <X />

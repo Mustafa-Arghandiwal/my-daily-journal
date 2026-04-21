@@ -14,7 +14,6 @@ export default function Home() {
     const { user } = useContext(AuthContext)!
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [entries, setEntries] = useState<EntryType[]>([])
-    const [mainMessage, setMainMessage] = useState('')
 
     const getEntries = async () => {
         const result = await fetch('http://localhost:3000/entries', {
@@ -27,7 +26,6 @@ export default function Home() {
 
         if (result.status === 401) {
             console.log('Not authenticated')
-            setMainMessage('Login to create entries.')
         } else {
             const data: EntryType[] = await result.json()
             setEntries(data)
@@ -69,7 +67,7 @@ export default function Home() {
                         :
                         entries.length > 0 ?
                             entries.map(entry => (
-                                <Entry key={entry.id} entry={entry} />
+                                <Entry key={entry.id} entry={entry} refreshEntries={getEntries} />
                             ))
                             :
                             <p className="text-center text-2xl font-bold">No entries yet. Start by creating one.</p>
