@@ -1,5 +1,5 @@
 import { X } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import confetti from 'canvas-confetti'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries }: Props) {
     if (!isModalOpen) return null
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState<Record<string, string>>({})
     const feelingPlaceholders = ["confused", "excited", "thankful", "curious", "like shit", "overwhelmed", "motivated", "lonely", "frustrated", "tired"]
     const [randomIndex] = useState(() => Math.floor(Math.random() * feelingPlaceholders.length))
     const showConfetti = () => {
