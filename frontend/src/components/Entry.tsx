@@ -2,6 +2,7 @@ import { Edit, Trash } from "lucide-react"
 import type { EntryType } from "../types/entry"
 import { useState } from "react"
 import EditEntryModal from "./EditEntryModal"
+import Portal from "./Portal"
 
 export default function Entry({ entry, refreshEntries }: { entry: EntryType, refreshEntries: () => Promise<void> }) {
 

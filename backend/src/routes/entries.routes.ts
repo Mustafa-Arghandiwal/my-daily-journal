@@ -8,6 +8,6 @@ router.get('/', getUserEntries)
 
 router.delete('/:id', deleteEntry)
 
-router.patch('/:id', editEntry)
+router.put('/:id', editEntry)
 
 export default router
