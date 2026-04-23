@@ -54,7 +54,7 @@ export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalO
 
 
     return (
-        <Portal>
+        <Portal setModalState={setIsEditModalOpen}>
             <form key={entry.id} onSubmit={editEntry} className="relative w-[80vw] max-w-2xl min-h-72  bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2"

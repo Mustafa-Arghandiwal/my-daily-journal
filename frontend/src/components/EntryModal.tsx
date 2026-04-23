@@ -68,7 +68,7 @@ export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries
 
 
     return (
-        <Portal>
+        <Portal setModalState={setIsModalOpen}>
             <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2"

@@ -1,15 +1,18 @@
-import type { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 
-export default function Portal({ children }: PropsWithChildren) {
+type Props = {
+    children: React.ReactNode,
+    setModalState: React.Dispatch<React.SetStateAction<boolean>>,
+    closeOnOutsideClick?: boolean,
+}
+
+export default function Portal({ children, setModalState, closeOnOutsideClick = false }: Props) {
 
     return createPortal(
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-            <div className="      ">
+        <div onClick={() => closeOnOutsideClick && setModalState(false)} className="fixed inset-0  backdrop-blur-[2px] bg-black/30 flex items-center justify-center">
+            <div onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
-
-
         </div>,
         document.body
     )

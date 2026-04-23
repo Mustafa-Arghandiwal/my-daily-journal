@@ -50,7 +50,7 @@ export default function Entry({ entry, refreshEntries }: { entry: EntryType, ref
             <p className="mt-4 line-clamp-3">{entry.content}</p>
 
 
-            <EditEntryModal id={entry.id} title={entry.title} feeling={entry.feeling} content={entry.content} isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen} refreshEntries={refreshEntries} />
+            <EditEntryModal entry={entry} isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen} refreshEntries={refreshEntries} />
             <ViewEntryModal entry={entry} isViewModalOpen={isViewModalOpen} setIsViewModalOpen={setIsViewModalOpen} />
         </div>
     )
