@@ -2,7 +2,6 @@ import { Edit, Trash } from "lucide-react"
 import type { EntryType } from "../types/entry"
 import { useState } from "react"
 import EditEntryModal from "./EditEntryModal"
-import Portal from "./Portal"
 
 export default function Entry({ entry, refreshEntries }: { entry: EntryType, refreshEntries: () => Promise<void> }) {
 
@@ -24,6 +23,15 @@ export default function Entry({ entry, refreshEntries }: { entry: EntryType, ref
         }
     }
 
+    const localCreatedAt = new Date(entry.created_at + 'Z')
+    const formattedCreatedAt = localCreatedAt.toLocaleString('sv-SE', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    })
 
     return (
         <div className="relative border-2 rounded-md bg-white shadow-[-4px_3px_0px_black] py-2 px-8 cursor-pointer min-h-44">
@@ -40,7 +48,7 @@ export default function Entry({ entry, refreshEntries }: { entry: EntryType, ref
 
             <p className="font-bold text-xl">{entry.title}</p>
             <p className="font-semibold">{entry.feeling && `Feeling ${entry.feeling}`}</p>
-            <p className="text-sm underline">{(entry.created_at).slice(0, -3)}</p>
+            <p className="text-sm underline">{formattedCreatedAt}</p>
             <p className="mt-4 line-clamp-3">{entry.content}</p>
 
 

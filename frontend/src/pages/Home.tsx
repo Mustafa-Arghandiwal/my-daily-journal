@@ -70,7 +70,7 @@ export default function Home() {
                                 <Entry key={entry.id} entry={entry} refreshEntries={getEntries} />
                             ))
                             :
-                            <p className="text-center text-2xl font-bold">No entries yet. Start by creating one.</p>
+                            <p className="text-center text-2xl font-bold">No entries to show. Start by creating one.</p>
                     }
                 </div>
 
