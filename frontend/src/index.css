@@ -4,25 +4,39 @@
 
 
 @theme {
-	--font-patrick-hand: "Patrick Hand", system-ui;
-	--font-comic-neue: "Comic Neue", system-ui;
+    --font-patrick-hand: "Patrick Hand", system-ui;
+    --font-comic-neue: "Comic Neue", system-ui;
 }
 
 :root {
-	font-family: "Comic Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
+    font-family: "Comic Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
 
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #f6f4f1;
-	color: black;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #f6f4f1;
+    color: black;
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-	margin: 0;
+    margin: 0;
+}
+
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 999px;
 }

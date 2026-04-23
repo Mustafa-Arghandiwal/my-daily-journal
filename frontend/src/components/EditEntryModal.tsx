@@ -2,18 +2,16 @@
 import { X } from "lucide-react"
 import { useState } from "react"
 import Portal from "./Portal"
+import type { EntryType } from "../types/entry"
 
 type Props = {
-    id: number,
-    title: string,
-    feeling: string,
-    content: string,
+    entry: EntryType
     isEditModalOpen: boolean,
     setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>
     refreshEntries: () => Promise<void>
 }
 
-export default function EditEntryModal({ id, title, feeling, content, isEditModalOpen, setIsEditModalOpen, refreshEntries }: Props) {
+export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalOpen, refreshEntries }: Props) {
     if (!isEditModalOpen) return null
 
     const [errors, setErrors] = useState<Record<string, string>>({})
@@ -25,7 +23,7 @@ export default function EditEntryModal({ id, title, feeling, content, isEditModa
         const entryData = Object.fromEntries(formData)
 
         try {
-            const result = await fetch(`http://localhost:3000/entries/${id}`, {
+            const result = await fetch(`http://localhost:3000/entries/${entry.id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -57,7 +55,7 @@ export default function EditEntryModal({ id, title, feeling, content, isEditModa
 
     return (
         <Portal>
-            <form key={id} onSubmit={editEntry} className="relative w-[80vw] max-w-2xl min-h-72  bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
+            <form key={entry.id} onSubmit={editEntry} className="relative w-[80vw] max-w-2xl min-h-72  bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2"
                     onClick={() => setIsEditModalOpen(false)}
@@ -65,13 +63,13 @@ export default function EditEntryModal({ id, title, feeling, content, isEditModa
                     <X />
                 </button>
 
-                <input type="text" name="title" placeholder="Title" defaultValue={title}
+                <input type="text" name="title" placeholder="Title" defaultValue={entry.title}
                     className="mx-auto border-[0.5px] rounded-md text-4xl p-1 text-center " />
                 <p className="text-sm text-red-600 ">{errors.title}</p>
 
                 <div className="text-center">
                     <p className="text-2xl mt-2">Feeling</p>
-                    <input type="text" name="feeling" defaultValue={feeling}
+                    <input type="text" name="feeling" defaultValue={entry.feeling}
                         className="p-1 mx-auto text-2xl border-[0.5px] rounded-md text-center  " />
                     <p className="text-sm text-red-600 ">{errors.feeling}</p>
                 </div>
@@ -79,7 +77,7 @@ export default function EditEntryModal({ id, title, feeling, content, isEditModa
                 <textarea
                     name="content"
                     placeholder="Start writing here..."
-                    defaultValue={content}
+                    defaultValue={entry.content}
                     onInput={(e) => {
                         const target = e.currentTarget
                         target.style.height = "auto"
