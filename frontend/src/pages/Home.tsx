@@ -1,7 +1,7 @@
 import MainLayout from "../layouts/MainLayout";
 import { Pencil } from "lucide-react";
 import Entry from "../components/Entry";
-import EntryModal from "../components/EntryModal";
+import NewEntryModal from "../components/NewEntryModal";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../App";
 import type { EntryType } from "../types/entry";
@@ -46,7 +46,7 @@ export default function Home() {
 
             <section className="max-w-200 px-2 mx-auto py-8 min-h-[calc(100vh-135px)]">
                 {/* <h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1> */}
-                <h2 className="text-5xl text-center capitalize">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg} </h2>
+                <h2 className="text-5xl text-center capitalize">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg + ", Stranger"} </h2>
                 <div className="flex justify-center gap-2 flex-col items-center mt-8">
                     {user &&
                         <>
@@ -76,7 +76,7 @@ export default function Home() {
 
 
 
-                <EntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} refreshEntries={getEntries} />
+                <NewEntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} refreshEntries={getEntries} />
 
             </section>
 

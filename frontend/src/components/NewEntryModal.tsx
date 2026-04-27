@@ -9,7 +9,7 @@ type Props = {
     refreshEntries: () => Promise<void>
 }
 
-export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries }: Props) {
+export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntries }: Props) {
     if (!isModalOpen) return null
 
     const [errors, setErrors] = useState<Record<string, string>>({})
@@ -69,7 +69,7 @@ export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries
 
     return (
         <Portal setModalState={setIsModalOpen}>
-            <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
+            <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%] bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2"
                     onClick={() => setIsModalOpen(false)}
@@ -94,9 +94,10 @@ export default function EntryModal({ isModalOpen, setIsModalOpen, refreshEntries
                     onInput={(e) => {
                         const target = e.currentTarget
                         target.style.height = "auto"
+                        target.style.maxHeight = "50vh"
                         target.style.height = target.scrollHeight + "px"
                     }}
-                    className="p-2 border rounded-md w-full min-h-52 resize-none overflow-hidden"
+                    className="p-2 border rounded-md w-full min-h-52 resize-none overflow-y-auto scrollbar-thin"
                 />
                 <p className="text-sm text-red-600">{errors.content}</p>
 

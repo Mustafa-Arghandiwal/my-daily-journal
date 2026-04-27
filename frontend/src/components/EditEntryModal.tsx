@@ -83,7 +83,7 @@ export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalO
                         target.style.height = "auto"
                         target.style.height = target.scrollHeight + "px"
                     }}
-                    className="p-2 border rounded-md w-full min-h-52 resize-none overflow-hidden"
+                    className="p-2 border rounded-md w-full min-h-52  resize-none overflow-hidden"
                 />
                 <p className="text-sm text-red-600">{errors.content}</p>
 
