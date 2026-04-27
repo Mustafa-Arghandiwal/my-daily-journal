@@ -1,19 +1,16 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { X } from "lucide-react";
 import SignUpModal from "./SignUpModal";
 import LoginModal from "./LoginModal";
 import Portal from "./Portal";
-type Props = {
-    isAuthModalOpen: boolean,
-    setIsAuthModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-}
+import { AuthModalContext } from "../App";
 
-
-
-export default function AuthModal({ isAuthModalOpen, setIsAuthModalOpen }: Props) {
+export default function AuthModal() {
 
 
     const [isSignUp, setIsSignUp] = useState(false)
+    const { isAuthModalOpen, setIsAuthModalOpen } = useContext(AuthModalContext)!
+    console.log(isAuthModalOpen)
 
     if (!isAuthModalOpen) return null
 

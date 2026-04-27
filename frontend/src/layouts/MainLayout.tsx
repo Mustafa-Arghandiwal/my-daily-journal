@@ -3,10 +3,11 @@ import { useContext, useEffect, useRef, useState, type PropsWithChildren } from 
 import { LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
 import AuthModal from "../components/AuthModal.tsx";
-import { AuthContext } from "../App";
+import { AuthContext, AuthModalContext } from "../App";
 export default function MainLayout({ children }: PropsWithChildren) {
 
-    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+    // const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+    const { isAuthModalOpen, setIsAuthModalOpen } = useContext(AuthModalContext)
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
     const { user, setUser } = useContext(AuthContext)!
     const menuRef = useRef<HTMLUListElement | null>(null)
@@ -40,7 +41,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
     }
 
     return (
-        <>
+        <div className="min-h-screen flex flex-col  ">
             <header className="flex justify-between items-center px-6 py-3 border-b-3">
                 <Link to="/" className="flex gap-3 items-center">
                     <div className="bg-white border p-1 rounded-md shadow-[3px_3px_0px_black]">
@@ -83,12 +84,11 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 </div>
             </header>
 
-            <main className="relative">
+            <main className="relative flex-1">
 
-                <AuthModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={setIsAuthModalOpen} />
                 {children}
             </main>
-            <footer className="border grid place-items-center bg-white py-4">
+            <footer className="border grid place-items-center bg-white py-2 rounded-t-xl">
                 <div className="flex gap-3">
 
                     <a href="https://github.com/Mustafa-Arghandiwal" target="_blank">
@@ -104,7 +104,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 <p className="tracking-widest text-xs mt-2">&copy; {new Date().getFullYear()} My Journal</p>
 
             </footer>
-        </>
+        </div>
 
     )
 }
