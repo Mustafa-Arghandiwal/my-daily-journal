@@ -81,6 +81,7 @@ export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalO
                     onInput={(e) => {
                         const target = e.currentTarget
                         target.style.height = "auto"
+                        target.style.maxHeight = "50vh"
                         target.style.height = target.scrollHeight + "px"
                     }}
                     className="p-2 border-[0.5px] rounded-md max-w-full min-h-52 resize-none overflow-y-auto scrollbar-thin"
