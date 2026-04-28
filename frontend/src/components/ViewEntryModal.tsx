@@ -15,7 +15,7 @@ export default function ViewEntryModal({ entry, isViewModalOpen, setIsViewModalO
 
     return (
         <Portal setModalState={setIsViewModalOpen} closeOnOutsideClick={true}>
-            <div className="relative w-[85vw] max-w-2xl min-h-72 max-h-96 overflow-y-auto scrollbar-thin bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
+            <div className="relative w-[85vw] max-w-2xl min-h-72 max-h-96 overflow-y-auto scrollbar-thin border-2 p-6 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2"
                     onClick={() => setIsViewModalOpen(false)}

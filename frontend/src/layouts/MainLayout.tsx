@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
-import { AuthContext, AuthModalContext } from "../App";
+import { AuthContext, AuthModalContext, ThemeContext } from "../App";
 export default function MainLayout({ children }: PropsWithChildren) {
 
     const { setIsAuthModalOpen } = useContext(AuthModalContext)!
+    const { isDark, setIsDark } = useContext(ThemeContext)!
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
     const { user, setUser } = useContext(AuthContext)!
     const menuRef = useRef<HTMLUListElement | null>(null)
@@ -42,22 +43,26 @@ export default function MainLayout({ children }: PropsWithChildren) {
         <div className="min-h-screen flex flex-col  ">
             <header className="flex justify-between items-center px-2 sm:px-6 py-3 border-b-3">
                 <Link to="/" className="flex gap-3 items-center">
-                    <div className="bg-white border p-1 rounded-md shadow-[3px_3px_0px_black]">
+                    <div className=" border p-1 rounded-md shadow-[3px_3px_0px_black]">
                         <Notebook size={18} />
                     </div>
 
                     <p className="font-bold hidden xs:block">My Journal</p>
                 </Link>
                 {user &&
-                    <div className="bg-white border-2 text-nowrap shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
+                    <div className=" border-2 text-nowrap shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
                         <Flame size={20} className="text-orange-500" />
                         0 Days
                     </div>
                 }
 
                 <div className="flex items-center gap-2 sm:gap-4">
-                    <button className="border-2 rounded-full w-8 h-8 grid place-items-center cursor-pointer">
-                        <Moon size={18} />
+                    <button onClick={() => setIsDark((prev: boolean) => !prev)} className="border-2 rounded-full w-8 h-8 grid place-items-center cursor-pointer">
+                        {isDark ?
+                            <Sun size={18} />
+                            :
+                            <Moon size={18} />
+                        }
                     </button>
                     {user ?
                         <div className="relative">
@@ -66,17 +71,17 @@ export default function MainLayout({ children }: PropsWithChildren) {
                             </button>
 
                             <ul ref={menuRef} className={`border-2 font-bold absolute ${isProfileMenuOpen ? "visible opacity-100 z-50" : "invisible opacity-0"} duration-100 whitespace-nowrap rounded-sm
-                                            top-full mt-1 bg-white right-0`}>
+                                            top-full mt-1  right-0`}>
                                 <li className="">
-                                    <button onClick={() => logout()} className="cursor-pointer px-1.5 py-0.5 hover:bg-gray-100 rounded-sm">Log out</button>
+                                    <button onClick={() => logout()} className="cursor-pointer px-1.5 py-0.5 bg-stone-100 text-slate-800 dark:bg-stone-900 dark:text-stone-200 rounded-sm">Log out</button>
                                 </li>
                             </ul>
                         </div>
                         :
                         <button onClick={() => setIsAuthModalOpen(true)} className="relative group cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full">
                             <LogIn size={18} />
-                            <p className="absolute text-sm bg-black text-white whitespace-nowrap py-1 px-2 -bottom-9 -right-6 shadowmd rounded-sm
-                            invisible group group-hover:visible opacity-0 group-hover:opacity-100    duration-150">Log in / Sign up</p>
+                            <p className="absolute font-bold dark:bg-stone-100 dark:text-slate-800 bg-stone-900 text-stone-200 text-sm whitespace-nowrap py-1 px-2 -bottom-9 -right-6 rounded-sm
+                            invisible group group-hover:visible opacity-0 group-hover:opacity-100 duration-150">Log in / Sign up</p>
                         </button>
                     }
                 </div>
@@ -86,7 +91,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
                 {children}
             </main>
-            <footer className="border grid place-items-center bg-white py-2 rounded-t-xl">
+            <footer className="border grid place-items-center py-2 rounded-t-xl">
                 <div className="flex gap-3">
 
                     <a href="https://github.com/Mustafa-Arghandiwal" target="_blank">

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
     --font-patrick-hand: "Patrick Hand", system-ui;
@@ -12,17 +13,12 @@
 :root {
     font-family: "Comic Neue", system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
-
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #f6f4f1;
-    color: black;
-
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 
 body {
     margin: 0;
@@ -40,4 +36,12 @@ body {
 .scrollbar-thin::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 999px;
+}
+
+.dark .scrollbar-thin {
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.25);
 }

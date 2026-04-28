@@ -14,13 +14,37 @@ type AuthModalContextType = {
     isAuthModalOpen: boolean,
     setIsAuthModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
+type ThemeContextType = {
+    isDark: boolean,
+    setIsDark: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 const AuthContext = createContext<AuthContextType | null>(null)
 const AuthModalContext = createContext<AuthModalContextType | null>(null)
+const ThemeContext = createContext<ThemeContextType | null>(null)
 function App() {
 
     const [user, setUser] = useState<User | null>(null)
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+    const [isDark, setIsDark] = useState(() => {
+        const storedTheme = localStorage.getItem('theme')
+        if (storedTheme !== null) {
+            return storedTheme === 'dark'
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+    })
+
+    useEffect(() => {
+        if (isDark) {
+            document.documentElement.classList.add('dark')
+            localStorage.setItem('theme', 'dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+            localStorage.setItem('theme', 'light')
+        }
+
+    }, [isDark])
+
 
     useEffect(() => {
         fetch('http://localhost:3000/api/me', {
@@ -42,18 +66,22 @@ function App() {
 
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
-            <AuthModalContext.Provider value={{ isAuthModalOpen, setIsAuthModalOpen }}>
-                <AuthModal />
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/' element={<Home />} />
-                    </Routes>
-                </BrowserRouter>
-            </AuthModalContext.Provider>
-        </AuthContext.Provider>
+        <ThemeContext.Provider value={{ isDark, setIsDark }}>
+            <AuthContext.Provider value={{ user, setUser }}>
+                <AuthModalContext.Provider value={{ isAuthModalOpen, setIsAuthModalOpen }}>
+                    <div className="min-h-screen bg-stone-100 text-slate-800 dark:bg-stone-900 dark:text-stone-200">
+                        <AuthModal />
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path='/' element={<Home />} />
+                            </Routes>
+                        </BrowserRouter>
+                    </div>
+                </AuthModalContext.Provider>
+            </AuthContext.Provider>
+        </ThemeContext.Provider>
     )
 }
 
-export { AuthContext, AuthModalContext }
+export { AuthContext, AuthModalContext, ThemeContext }
 export default App

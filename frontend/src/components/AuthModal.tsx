@@ -15,7 +15,7 @@ export default function AuthModal() {
 
     return (
         <Portal setModalState={setIsAuthModalOpen} closeOnOutsideClick={true}>
-            <div className=" bg-white p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md flex flex-col gap-2 w-72 sm:w-96 ">
+            <div className="bg-stone-100 dark:bg-stone-800 p-8 absolute top-36 left-1/2 -translate-x-1/2 border-2 rounded-md flex flex-col gap-2 w-72 sm:w-96">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2" onClick={() => setIsAuthModalOpen(false)}>
                     <X />

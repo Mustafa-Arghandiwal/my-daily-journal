@@ -10,7 +10,7 @@ export default function Portal({ children, setModalState, closeOnOutsideClick = 
 
     return createPortal(
         <div onClick={() => closeOnOutsideClick && setModalState(false)} className="fixed inset-0  backdrop-blur-[2px] bg-black/30 flex items-center justify-center">
-            <div onClick={(e) => e.stopPropagation()}>
+            <div onClick={(e) => e.stopPropagation()} className=" bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 rounded-md">
                 {children}
             </div>
         </div>,

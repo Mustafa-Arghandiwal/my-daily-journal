@@ -79,7 +79,7 @@ export default function SignUpModal() {
                 <p className="text-sm text-red-600 ">{errors.confirmPassword}</p>
             </label>
 
-            <button type="submit" className="font-bold w-full mt-5 cursor-pointer py-1 rounded-md text-white bg-black">
+            <button type="submit" className="font-bold w-full mt-5 cursor-pointer py-1 rounded-md bg-stone-900 text-slate-200 border">
                 Sign Up
             </button>
             <p className="text-center text-red-600">{msg}</p>

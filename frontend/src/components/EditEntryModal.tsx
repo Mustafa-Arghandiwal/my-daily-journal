@@ -55,7 +55,7 @@ export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalO
 
     return (
         <Portal setModalState={setIsEditModalOpen}>
-            <form key={entry.id} onSubmit={editEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%] bg-white border-2 p-7 rounded-md flex flex-col gap-4 ">
+            <form key={entry.id} onSubmit={editEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%] border-2 p-7 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-1 top-1"
                     onClick={() => setIsEditModalOpen(false)}
@@ -87,7 +87,7 @@ export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalO
                 />
                 <p className="text-sm text-red-600">{errors.content}</p>
 
-                <button className="rounded-md p-2 text-white bg-black w-fit ml-auto cursor-pointer">Save Changes</button>
+                <button className="rounded-md p-2 border w-fit ml-auto cursor-pointer bg-stone-900 text-slate-200 font-bold">Save Changes</button>
 
             </form>
         </Portal>

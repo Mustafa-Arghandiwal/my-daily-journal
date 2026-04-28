@@ -69,7 +69,7 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
 
     return (
         <Portal setModalState={setIsModalOpen}>
-            <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%] bg-white border-2 p-7 rounded-md flex flex-col gap-4 ">
+            <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%]  border-2 p-7 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-1 top-2"
                     onClick={() => setIsModalOpen(false)}
@@ -101,7 +101,7 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
                 />
                 <p className="text-sm text-red-600">{errors.content}</p>
 
-                <button className="rounded-md p-2 text-white bg-black w-fit ml-auto cursor-pointer">Save Entry</button>
+                <button className="rounded-md p-2 bg-stone-900 text-slate-200 font-bold border w-fit ml-auto cursor-pointer">Save Entry</button>
 
             </form>
         </Portal>

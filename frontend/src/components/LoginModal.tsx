@@ -44,7 +44,7 @@ export default function LoginModal() {
     }
 
     return (
-        <form onSubmit={login} className={``}>
+        <form onSubmit={login}>
 
 
             <label className="block  ">
@@ -58,7 +58,7 @@ export default function LoginModal() {
                 <p className="text-sm text-red-600 ">{loginErrors.password}</p>
             </label>
 
-            <button type="submit" className="font-bold w-full mt-5 cursor-pointer py-1 rounded-md text-white bg-black">
+            <button type="submit" className="font-bold w-full mt-5 cursor-pointer py-1 rounded-md bg-stone-900 text-slate-200 border ">
                 Log in
             </button>
 
