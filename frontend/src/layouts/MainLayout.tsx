@@ -2,12 +2,10 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
-import AuthModal from "../components/AuthModal.tsx";
 import { AuthContext, AuthModalContext } from "../App";
 export default function MainLayout({ children }: PropsWithChildren) {
 
-    // const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
-    const { isAuthModalOpen, setIsAuthModalOpen } = useContext(AuthModalContext)
+    const { setIsAuthModalOpen } = useContext(AuthModalContext)!
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
     const { user, setUser } = useContext(AuthContext)!
     const menuRef = useRef<HTMLUListElement | null>(null)
@@ -42,22 +40,22 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
     return (
         <div className="min-h-screen flex flex-col  ">
-            <header className="flex justify-between items-center px-6 py-3 border-b-3">
+            <header className="flex justify-between items-center px-2 sm:px-6 py-3 border-b-3">
                 <Link to="/" className="flex gap-3 items-center">
                     <div className="bg-white border p-1 rounded-md shadow-[3px_3px_0px_black]">
                         <Notebook size={18} />
                     </div>
 
-                    <p className="font-bold">My Journal</p>
+                    <p className="font-bold hidden xs:block">My Journal</p>
                 </Link>
                 {user &&
-                    <div className="bg-white border-2 shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
+                    <div className="bg-white border-2 text-nowrap shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
                         <Flame size={20} className="text-orange-500" />
                         0 Days
                     </div>
                 }
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4">
                     <button className="border-2 rounded-full w-8 h-8 grid place-items-center cursor-pointer">
                         <Moon size={18} />
                     </button>

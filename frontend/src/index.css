@@ -6,6 +6,7 @@
 @theme {
     --font-patrick-hand: "Patrick Hand", system-ui;
     --font-comic-neue: "Comic Neue", system-ui;
+    --breakpoint-xs: 30rem;
 }
 
 :root {

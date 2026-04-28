@@ -44,7 +44,7 @@ export default function Entry({ entry, refreshEntries }: { entry: EntryType, ref
                 </button>
             </div>
 
-            <p className="font-bold text-xl">{entry.title}</p>
+            <p className="font-bold text-xl line-clamp-2 max-w-[85%]">{entry.title}</p>
             <p className="font-semibold">{entry.feeling && `Feeling ${entry.feeling}`}</p>
             <p className="text-sm underline">{formatDate(entry.created_at)}</p>
             <p className="mt-4 line-clamp-3">{entry.content}</p>

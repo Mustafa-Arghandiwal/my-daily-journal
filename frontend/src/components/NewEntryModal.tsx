@@ -69,22 +69,22 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
 
     return (
         <Portal setModalState={setIsModalOpen}>
-            <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%] bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
+            <form onSubmit={createEntry} className="relative w-[80vw] max-w-2xl min-h-72 max-h-[95%] bg-white border-2 p-7 rounded-md flex flex-col gap-4 ">
 
-                <button type="button" className="absolute cursor-pointer right-2 top-2"
+                <button type="button" className="absolute cursor-pointer right-1 top-2"
                     onClick={() => setIsModalOpen(false)}
                 >
                     <X />
                 </button>
 
                 <input type="text" name="title" placeholder="Title"
-                    className="mx-auto border-[0.5px] rounded-md text-4xl p-1 text-center " />
+                    className="mx-auto border-[0.5px] rounded-md text-xl sm:text-4xl p-1 text-center max-w-full " />
                 <p className="text-sm text-red-600 ">{errors.title}</p>
 
                 <div className="text-center">
-                    <p className="text-2xl mt-2">Feeling</p>
+                    <p className="text-lg sm:text-2xl  mt-2">Feeling</p>
                     <input type="text" name="feeling" placeholder={`e.g. ${feelingPlaceholders[randomIndex]}`}
-                        className="p-1 mx-auto text-2xl border-[0.5px] rounded-md text-center  " />
+                        className="p-1 mx-auto text-lg sm:text-2xl max-w-full border-[0.5px] rounded-md text-center  " />
                     <p className="text-sm text-red-600">{errors.feeling}</p>
                 </div>
 
@@ -97,7 +97,7 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
                         target.style.maxHeight = "50vh"
                         target.style.height = target.scrollHeight + "px"
                     }}
-                    className="p-2 border rounded-md w-full min-h-52 resize-none overflow-y-auto scrollbar-thin"
+                    className="p-2 border-[0.5px] rounded-md max-w-full min-h-52 resize-none overflow-y-auto scrollbar-thin"
                 />
                 <p className="text-sm text-red-600">{errors.content}</p>
 

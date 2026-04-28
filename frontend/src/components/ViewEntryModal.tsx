@@ -15,7 +15,7 @@ export default function ViewEntryModal({ entry, isViewModalOpen, setIsViewModalO
 
     return (
         <Portal setModalState={setIsViewModalOpen} closeOnOutsideClick={true}>
-            <div className="relative w-[80vw] max-w-2xl min-h-72 max-h-96 overflow-y-auto scrollbar-thin bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
+            <div className="relative w-[85vw] max-w-2xl min-h-72 max-h-96 overflow-y-auto scrollbar-thin bg-white border-2 p-6 rounded-md flex flex-col gap-4 ">
 
                 <button type="button" className="absolute cursor-pointer right-2 top-2"
                     onClick={() => setIsViewModalOpen(false)}
@@ -23,7 +23,9 @@ export default function ViewEntryModal({ entry, isViewModalOpen, setIsViewModalO
                     <X />
                 </button>
                 <p className="text-xl font-bold">{entry.title}</p>
-                <p className="font-semibold">{entry.feeling}</p>
+                {entry.feeling &&
+                    <p className="font-bold">{`Feeling ${entry.feeling}`}</p>
+                }
                 <p className="text-sm underline">{formatDate(entry.created_at)}</p>
                 <p>{entry.content}</p>
 

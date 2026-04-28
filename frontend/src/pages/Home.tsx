@@ -47,12 +47,12 @@ export default function Home() {
 
             <section className="max-w-200 px-2 mx-auto py-8">
                 {/* <h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1> */}
-                <h2 className="text-5xl text-center capitalize">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg + ", Stranger"} </h2>
+                <h2 className="text-4xl xs:text-5xl text-center capitalize">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg + ", Stranger"} </h2>
                 <div className="flex justify-center gap-2 flex-col items-center mt-8">
                     {user &&
                         <>
 
-                            <p className="font-bold text-xl">Let's write something everyday, even if it's one sentence.</p>
+                            <p className="text-center font-bold text-xl">Write something today, even if it's just one sentence.</p>
                             <button className="font-bold border flex gap-2 p-2 rounded-md text-white bg-black cursor-pointer"
                                 onClick={() => setIsModalOpen(true)}>
                                 <Pencil />
