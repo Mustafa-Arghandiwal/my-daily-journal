@@ -58,7 +58,8 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 </Link>
                 {user &&
                     <div className=" border-2 text-nowrap shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
-                        <Flame size={20} className="text-orange-500" />
+                        <Flame size={20}
+                            className={`${displayStreak > 0 ? "text-orange-500 dark:text-orange-400" : " text-stone-700 dark:text-stone-300 opacity-40"}`} />
                         <p className="min-w-[5ch] text-center">
                             {displayStreak === 1 ? `${displayStreak} Day` : `${displayStreak} Days`}
                         </p>
