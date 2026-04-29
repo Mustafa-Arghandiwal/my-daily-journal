@@ -4,7 +4,11 @@ import { createContext, useEffect, useState } from "react"
 import AuthModal from "./components/AuthModal"
 
 type User = {
-    name: string
+    name: string,
+    email: string,
+    streak: number,
+    last_entry_date: string | null
+
 }
 type AuthContextType = {
     user: User | null;
@@ -46,7 +50,7 @@ function App() {
     }, [isDark])
 
 
-    useEffect(() => {
+    const getUser = async () => {
         fetch('http://localhost:3000/api/me', {
             method: "GET",
             credentials: "include"
@@ -61,6 +65,10 @@ function App() {
             .then(data => {
                 if (data) setUser(data.user)
             })
+    }
+
+    useEffect(() => {
+        getUser()
 
     }, [])
 

@@ -12,29 +12,64 @@ type EntryType = {
     updated_at: string
 }
 export const createEntry = (req: Request, res: Response) => {
-
-    if (!req.session.userId) {
+    const userId = req.session.userId
+    if (!userId) {
         return res.status(401).json({ success: false })
     }
+
     const entrySchema = z.object({
         title: z.string().trim().max(100, { error: "Too long" }).optional(),
         feeling: z.string().trim().max(50, { error: "Too long" }).optional(),
         content: z.string().trim().max(5000, { error: "Too long" }).min(1, { error: "Write something!" })
     })
+
     const zodResult = entrySchema.safeParse(req.body)
     if (!zodResult.success) {
         const flattened = z.flattenError(zodResult.error)
         return res.status(400).json({ success: false, errors: flattened })
-    } else {
-        const { title, feeling, content } = zodResult.data
-        const finalTitle = title || 'Untitled'
-        const userId = req.session.userId
-
-        const statement = db.prepare('INSERT INTO entries (user_id, title, feeling, content) VALUES (?, ?, ?, ?)')
-        statement.run(userId, finalTitle, feeling, content)
-        return res.status(201).json({ success: true })
     }
 
+    const { title, feeling, content } = zodResult.data
+    const finalTitle = title || 'Untitled'
+
+    type UserRow = {
+        streak: number
+        last_entry_date: string | null
+    }
+
+    const transaction = db.transaction(() => {
+        db.prepare('INSERT INTO entries (user_id, title, feeling, content) VALUES (?, ?, ?, ?)')
+            .run(userId, finalTitle, feeling, content)
+
+        const user = db.prepare('SELECT streak, last_entry_date FROM users WHERE id = ?').get(userId) as UserRow | undefined
+
+        if (!user) {
+            throw new Error('User not found')
+        }
+
+        const today = new Date().toLocaleDateString('en-CA')
+
+        const yesterdayDate = new Date()
+        yesterdayDate.setDate(yesterdayDate.getDate() - 1)
+        const yesterday = yesterdayDate.toLocaleDateString('en-CA')
+
+        let newStreak = 1
+
+        if (user.last_entry_date === today) {
+            newStreak = user.streak
+        } else if (user.last_entry_date === yesterday) {
+            newStreak = user.streak + 1
+        }
+
+        db.prepare(`UPDATE users SET last_entry_date = ?, streak = ? WHERE id = ?`).run(today, newStreak, userId)
+    })
+
+    try {
+        transaction()
+        return res.status(201).json({ success: true })
+    } catch (err) {
+        return res.status(500).json({ success: false })
+    }
 }
 
 

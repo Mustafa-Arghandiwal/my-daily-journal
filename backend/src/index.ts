@@ -33,7 +33,7 @@ app.use(session({
 
 app.get('/api/me', (req, res) => {
     if (req.session.userId) {
-        const user = db.prepare('SELECT id, name, email FROM users WHERE id = ?')
+        const user = db.prepare('SELECT id, name, email, streak, last_entry_date FROM users WHERE id = ?')
             .get(req.session.userId)
         res.status(200).json({
             success: true,

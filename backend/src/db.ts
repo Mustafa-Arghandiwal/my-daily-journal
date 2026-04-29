@@ -10,6 +10,9 @@ const usersTableQuery = `
 		name TEXT NOT NULL,
 		email TEXT NOT NULL UNIQUE,
 		password TEXT NOT NULL,
+        streak INTEGER NOT NULL DEFAULT 0,
+        longest_streak INTEGER NOT NULL DEFAULT 0,
+        last_entry_date TEXT,
 		created_at TEXT DEFAULT (datetime('now'))
 );
 `

@@ -39,6 +39,13 @@ export default function MainLayout({ children }: PropsWithChildren) {
         window.location.reload()
     }
 
+    //display streak
+    const today = new Date().toLocaleDateString('en-CA')
+    const yesterdayDate = new Date()
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1)
+    const yesterday = yesterdayDate.toLocaleDateString('en-CA')
+    const displayStreak = user ? user.last_entry_date === today || user.last_entry_date === yesterday ? user.streak : 0 : 0
+
     return (
         <div className="min-h-screen flex flex-col  ">
             <header className="flex justify-between items-center px-2 sm:px-6 py-3 border-b-3">
@@ -52,7 +59,9 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 {user &&
                     <div className=" border-2 text-nowrap shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
                         <Flame size={20} className="text-orange-500" />
-                        0 Days
+                        <p className="min-w-[5ch] text-center">
+                            {displayStreak === 1 ? `${displayStreak} Day` : `${displayStreak} Days`}
+                        </p>
                     </div>
                 }
 
