@@ -91,7 +91,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
                 {children}
             </main>
-            <footer className="border grid place-items-center py-2 rounded-t-xl">
+            <footer className="border-t-[0.5px] grid place-items-center py-2 rounded-t-xl">
                 <div className="flex gap-3">
 
                     <a href="https://github.com/Mustafa-Arghandiwal" target="_blank">

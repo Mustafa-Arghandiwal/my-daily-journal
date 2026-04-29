@@ -27,7 +27,7 @@ export default function ViewEntryModal({ entry, isViewModalOpen, setIsViewModalO
                     <p className="font-bold">{`Feeling ${entry.feeling}`}</p>
                 }
                 <p className="text-sm underline">{formatDate(entry.created_at)}</p>
-                <p>{entry.content}</p>
+                <p className="whitespace-pre-line">{entry.content}</p>
 
             </div>
 
