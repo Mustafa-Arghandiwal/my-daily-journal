@@ -55,7 +55,7 @@ export default function Home() {
                         <>
 
                             <p className="text-center font-bold text-xl">Write something today, even if it's just one sentence.</p>
-                            <button className="font-bold border flex gap-2 p-2 rounded-md cursor-pointer"
+                            <button className="font-bold border flex gap-2 p-2 rounded-md cursor-pointer bg-stone-800 text-slate-200"
                                 onClick={() => setIsModalOpen(true)}>
                                 <Pencil />
                                 New Entry

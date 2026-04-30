@@ -79,7 +79,7 @@ function App() {
         <ThemeContext.Provider value={{ isDark, setIsDark }}>
             <AuthContext.Provider value={{ user, setUser, getUser }}>
                 <AuthModalContext.Provider value={{ isAuthModalOpen, setIsAuthModalOpen }}>
-                    <div className="min-h-screen bg-stone-100 text-slate-800 dark:bg-stone-900 dark:text-stone-200">
+                    <div className="min-h-screen bg-stone-100 text-slate-800 dark:bg-stone-900 dark:text-slate-200">
                         <AuthModal />
                         <BrowserRouter>
                             <Routes>

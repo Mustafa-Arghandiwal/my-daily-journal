@@ -28,7 +28,7 @@ export default function Entry({ entry, refreshEntries }: { entry: EntryType, ref
 
 
     return (
-        <div className="relative border-2 rounded-md  shadow-[-4px_3px_0px_rgba(0,0,0,0.9)] dark:shadow-[-4px_3px_0px_rgba(255,255,255,0.65)] py-2 px-8 min-h-44">
+        <div className="relative border-2 rounded-md bg-stone-100 dark:bg-stone-900  shadow-[-4px_3px_0px_rgba(0,0,0,0.9)] dark:shadow-[-4px_3px_0px_rgba(255,255,255,0.75)] py-2 px-8 min-h-44">
 
             <div className="flex gap-2 absolute top-2 right-2">
                 <button onClick={() => setIsViewModalOpen(true)} type="button" className="cursor-pointer  hover:scale-125 duration-100 ">
