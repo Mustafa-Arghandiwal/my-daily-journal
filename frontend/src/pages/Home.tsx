@@ -42,10 +42,12 @@ export default function Home() {
 
     return (
         <MainLayout>
-            <div className="absolute inset-0 -z-10 h-full w-full bg-[#f6f4f1] bg-[radial-gradient(#cbcfd5_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+            <div className="absolute inset-0 h-full w-full bg-stone-100 dark:bg-stone-900 bg-[radial-gradient(#d6d3d1_1px,transparent_1px)]
+                            dark:bg-[radial-gradient(#44403c_1px,transparent_1px)] bg-size-[16px_16px]">
+            </div>
 
 
-            <section className="max-w-200 px-2 mx-auto py-8">
+            <section className="relative max-w-200 px-2 mx-auto py-8">
                 {/* <h1 className="text-6xl text-center mb-20">Sign up to start journalling secure</h1> */}
                 <h2 className="text-4xl xs:text-5xl text-center capitalize">{user ? `${greetingMsg}, ${user.name} 👋` : greetingMsg + ", Stranger"} </h2>
                 <div className="flex justify-center gap-2 flex-col items-center mt-8">
