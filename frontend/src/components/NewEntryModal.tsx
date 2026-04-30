@@ -13,7 +13,7 @@ type Props = {
 export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntries }: Props) {
     if (!isModalOpen) return null
 
-    const { setUser } = useContext(AuthContext)!
+    const { getUser } = useContext(AuthContext)!
     const [errors, setErrors] = useState<Record<string, string>>({})
     const feelingPlaceholders = ["confused", "excited", "thankful", "curious", "like shit", "overwhelmed", "motivated", "lonely", "frustrated", "tired"]
     const [randomIndex] = useState(() => Math.floor(Math.random() * feelingPlaceholders.length))
@@ -34,23 +34,6 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
         });
     };
 
-    //for refreshing the streak on header
-    const refreshUser = async () => {
-        fetch('http://localhost:3000/api/me', {
-            method: "GET",
-            credentials: "include"
-        })
-            .then(res => {
-                if (res.status === 401) {
-                    setUser(null)
-                    return null
-                }
-                return res.json()
-            })
-            .then(data => {
-                if (data) setUser(data.user)
-            })
-    }
 
     const createEntry = async (e: React.SubmitEvent<HTMLFormElement>) => {
 
@@ -77,7 +60,7 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
         } else {
             setErrors({})
             await refreshEntries()
-            await refreshUser()
+            await getUser()
             showConfetti()
             setIsModalOpen(false)
         }

@@ -7,12 +7,14 @@ type User = {
     name: string,
     email: string,
     streak: number,
-    last_entry_date: string | null
+    last_entry_date: string | null,
+    longest_streak: number
 
 }
 type AuthContextType = {
     user: User | null;
     setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    getUser: () => Promise<void>
 }
 type AuthModalContextType = {
     isAuthModalOpen: boolean,
@@ -75,7 +77,7 @@ function App() {
 
     return (
         <ThemeContext.Provider value={{ isDark, setIsDark }}>
-            <AuthContext.Provider value={{ user, setUser }}>
+            <AuthContext.Provider value={{ user, setUser, getUser }}>
                 <AuthModalContext.Provider value={{ isAuthModalOpen, setIsAuthModalOpen }}>
                     <div className="min-h-screen bg-stone-100 text-slate-800 dark:bg-stone-900 dark:text-stone-200">
                         <AuthModal />
