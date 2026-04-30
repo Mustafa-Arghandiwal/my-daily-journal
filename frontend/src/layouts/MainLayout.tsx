@@ -57,12 +57,19 @@ export default function MainLayout({ children }: PropsWithChildren) {
                     <p className="font-bold hidden xs:block">My Journal</p>
                 </Link>
                 {user &&
-                    <div className=" border-2 text-nowrap shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
+                    <div className="relative group border-2 text-nowrap cursor-default shadow-[3px_3px_0px_black] font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
                         <Flame size={20}
                             className={`${displayStreak > 0 ? "text-orange-500 dark:text-orange-400" : " text-stone-700 dark:text-stone-300 opacity-40"}`} />
                         <p className="min-w-[5ch] text-center">
                             {displayStreak === 1 ? `${displayStreak} Day` : `${displayStreak} Days`}
                         </p>
+
+                        <p className="absolute flex gap-1 justify-center items-center font-bold bg-stone-100 text-slate-800 dark:bg-stone-900 dark:text-stone-200 text-sm whitespace-nowrap
+                                        py-1 px-2 -bottom-10 right-1/2 translate-x-1/2 rounded-full border-2 shadow-[3px_3px_0px_black]
+                            invisible group group-hover:visible opacity-0 group-hover:opacity-100 duration-150">
+                            <Flame size={20}
+                                className={`${displayStreak > 0 ? "text-orange-500 dark:text-orange-400" : " text-stone-700 dark:text-stone-300 opacity-40"}`} />
+                            Longest streak: {user?.longest_streak}</p>
                     </div>
                 }
 

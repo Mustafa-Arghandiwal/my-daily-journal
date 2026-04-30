@@ -34,14 +34,15 @@ export const createEntry = (req: Request, res: Response) => {
 
     type UserRow = {
         streak: number
-        last_entry_date: string | null
+        last_entry_date: string | null,
+        longest_streak: number
     }
 
     const transaction = db.transaction(() => {
         db.prepare('INSERT INTO entries (user_id, title, feeling, content) VALUES (?, ?, ?, ?)')
             .run(userId, finalTitle, feeling, content)
 
-        const user = db.prepare('SELECT streak, last_entry_date FROM users WHERE id = ?').get(userId) as UserRow | undefined
+        const user = db.prepare('SELECT streak, last_entry_date, longest_streak FROM users WHERE id = ?').get(userId) as UserRow | undefined
 
         if (!user) {
             throw new Error('User not found')
@@ -61,7 +62,9 @@ export const createEntry = (req: Request, res: Response) => {
             newStreak = user.streak + 1
         }
 
-        db.prepare(`UPDATE users SET last_entry_date = ?, streak = ? WHERE id = ?`).run(today, newStreak, userId)
+        let longestStreak = Math.max(user.longest_streak, newStreak)
+
+        db.prepare(`UPDATE users SET last_entry_date = ?, streak = ?, longest_streak = ? WHERE id = ?`).run(today, newStreak, longestStreak, userId)
     })
 
     try {
