@@ -34,7 +34,7 @@ export const createEntry = (req: Request, res: Response) => {
 
     type UserRow = {
         streak: number
-        last_entry_date: string | null,
+        last_entry_date: string,
         longest_streak: number
     }
 
@@ -49,16 +49,15 @@ export const createEntry = (req: Request, res: Response) => {
         }
 
         const today = new Date().toLocaleDateString('en-CA')
-
-        const yesterdayDate = new Date()
-        yesterdayDate.setDate(yesterdayDate.getDate() - 1)
-        const yesterday = yesterdayDate.toLocaleDateString('en-CA')
+        const dayBeforeYesterdayDate = new Date()
+        dayBeforeYesterdayDate.setDate(dayBeforeYesterdayDate.getDate() - 2)
+        const dayBeforeYesterday = dayBeforeYesterdayDate.toLocaleDateString('en-CA')
 
         let newStreak = 1
 
         if (user.last_entry_date === today) {
             newStreak = user.streak
-        } else if (user.last_entry_date === yesterday) {
+        } else if (user.last_entry_date < today && user.last_entry_date >= dayBeforeYesterday) {
             newStreak = user.streak + 1
         }
 
