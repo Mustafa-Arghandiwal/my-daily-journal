@@ -66,12 +66,23 @@ export default function Home() {
                 </div>
                 <div className="mt-12 flex flex-col gap-5">
                     {!user ?
-                        <p className="text-center text-2xl font-bold">
-                            <button className="underline cursor-pointer" onClick={() => setIsAuthModalOpen(true)}>
-                                Login
-                            </button>
+                        <>
+                            <p className="text-center text-2xl font-bold">
+                                <button className="underline cursor-pointer" onClick={() => setIsAuthModalOpen(true)}>
+                                    Login
+                                </button>
 
-                            &nbsp;to create entries.</p>
+                                &nbsp;to create entries.</p>
+                            <p className="text-center text-xl font-bold mt-8">Quick info</p>
+                            <ul className="max-w-lg font-semibold  mx-auto leading-relaxed list-disc ">
+                                <li>Your entries are securely hashed, so no one can read them except you.</li>
+                                <li>Write something every day to keep your streak going. It can be as short as one sentence.</li>
+                                <li>If you miss a day, you have a 2-day grace period. As long as you come back and write within those two days, your streak won’t break.</li>
+                                <li>This project is open source. You can review the code on {" "} <a href="https://github.com/Mustafa-Arghandiwal/my-daily-journal" target="_blank" rel="noopener noreferrer" className="underline" >
+                                    GitHub </a></li>
+                            </ul>
+                        </>
+
                         :
                         entries.length > 0 ?
                             entries.map(entry => (
@@ -84,7 +95,9 @@ export default function Home() {
 
 
 
-                <NewEntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} refreshEntries={getEntries} />
+                {user &&
+                    <NewEntryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} refreshEntries={getEntries} />
+                }
 
             </section>
 

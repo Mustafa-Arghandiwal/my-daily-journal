@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
-import { LogIn, Notebook, UserRound } from "lucide-react";
+import { Info, LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
 import { AuthContext, AuthModalContext, ThemeContext } from "../App";
+import QuickInfoModal from "../components/QuickInfoModal";
 export default function MainLayout({ children }: PropsWithChildren) {
 
     const { setIsAuthModalOpen } = useContext(AuthModalContext)!
     const { isDark, setIsDark } = useContext(ThemeContext)!
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
+    const [isQuickInfoOpen, setIsQuickInfoOpen] = useState(false)
     const { user, setUser } = useContext(AuthContext)!
     const menuRef = useRef<HTMLUListElement | null>(null)
     const profileBtnRef = useRef<HTMLButtonElement | null>(null)
@@ -75,6 +77,14 @@ export default function MainLayout({ children }: PropsWithChildren) {
                 }
 
                 <div className="flex items-center gap-2 sm:gap-4">
+
+                    {user &&
+                        <button onClick={() => setIsQuickInfoOpen(true)} className="border-2 rounded-full w-8 h-8 grid place-items-center cursor-pointer 
+                    shadow-[2px_2px_0px_black] active:shadow-none duration-150 dark:shadow-[2px_2px_0px_rgba(255,255,255,0.85)]">
+                            <Info />
+                        </button>
+                    }
+
                     <button onClick={() => setIsDark((prev: boolean) => !prev)} className="border-2 rounded-full w-8 h-8 grid place-items-center cursor-pointer 
                     shadow-[2px_2px_0px_black] active:shadow-none duration-150 dark:shadow-[2px_2px_0px_rgba(255,255,255,0.85)]">
                         {isDark ?
@@ -99,7 +109,8 @@ export default function MainLayout({ children }: PropsWithChildren) {
                             </ul>
                         </div>
                         :
-                        <button onClick={() => setIsAuthModalOpen(true)} className="relative group cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full">
+                        <button onClick={() => setIsAuthModalOpen(true)} className="relative group cursor-pointer grid place-items-center border-2 w-8 h-8 rounded-full
+                        shadow-[2px_2px_0px_black] active:shadow-none duration-150 dark:shadow-[2px_2px_0px_rgba(255,255,255,0.85)]">
                             <LogIn size={18} />
                             <p className="absolute font-bold dark:bg-stone-100 dark:text-slate-800 bg-stone-900 text-stone-200 text-sm whitespace-nowrap py-1 px-2 -bottom-9 -right-6 rounded-sm
                             invisible group group-hover:visible opacity-0 group-hover:opacity-100 duration-150 pointer-events-none z-10">Log in / Sign up</p>
@@ -109,7 +120,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
             </header>
 
             <main className="relative flex-1">
-
+                {isQuickInfoOpen && <QuickInfoModal setIsQuickInfoOpen={setIsQuickInfoOpen} />}
                 {children}
             </main>
             <footer className="border-t-2 grid place-items-center pt-2 pb-1 ">

@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import { createContext, useEffect, useState } from "react"
 import AuthModal from "./components/AuthModal"
+import QuickInfoModal from "./components/QuickInfoModal"
 
 type User = {
     name: string,
