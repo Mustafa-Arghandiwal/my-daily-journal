@@ -75,7 +75,7 @@ export default function Home() {
                                 &nbsp;to create entries.</p>
                             <p className="text-center text-xl font-bold mt-8">Quick info</p>
                             <ul className="max-w-lg font-semibold  mx-auto leading-relaxed list-disc ">
-                                <li>Your entries are securely encrypted, so no one can read them except you.</li>
+                                <li>Your entries are securely encrypted and not stored in plain text.</li>
                                 <li>Write something every day to keep your streak going. It can be as short as one sentence.</li>
                                 <li>If you miss a day, you have a 2-day grace period. As long as you come back and write within those two days, your streak won’t break.</li>
                                 <li>This project is open source. You can review the code on {" "} <a href="https://github.com/Mustafa-Arghandiwal/my-daily-journal" target="_blank" rel="noopener noreferrer" className="underline" >
