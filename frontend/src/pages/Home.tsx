@@ -54,7 +54,7 @@ export default function Home() {
                     {user &&
                         <>
 
-                            <p className="text-center font-bold text-xl">Write something today, even if it's just one sentence.</p>
+                            <p className="text-center font-bold text-xl">Write something today. Even one sentence is enough.</p>
                             <button className="font-bold border flex gap-2 p-2 rounded-md cursor-pointer bg-stone-800 text-slate-200"
                                 onClick={() => setIsModalOpen(true)}>
                                 <Pencil />
@@ -73,11 +73,11 @@ export default function Home() {
                                 </button>
 
                                 &nbsp;to create entries.</p>
-                            <p className="text-center text-xl font-bold mt-8">Quick info</p>
-                            <ul className="max-w-lg font-semibold  mx-auto leading-relaxed list-disc ">
+                            <p className="text-center  text-xl font-bold mt-8">Quick info</p>
+                            <ul className="max-w-130 font-semibold mx-auto leading-relaxed list-disc ">
                                 <li>Your entries are securely encrypted and not stored in plain text.</li>
                                 <li>Write something every day to keep your streak going. It can be as short as one sentence.</li>
-                                <li>If you miss a day, you have a 2-day grace period. As long as you come back and write within those two days, your streak won’t break.</li>
+                                <li>You have a 2-day grace period. As long as you come back and write within those two days, your streak won’t break. So missing a day or two is okay.</li>
                                 <li>This project is open source. You can review the code on {" "} <a href="https://github.com/Mustafa-Arghandiwal/my-daily-journal" target="_blank" rel="noopener noreferrer" className="underline" >
                                     GitHub </a></li>
                             </ul>

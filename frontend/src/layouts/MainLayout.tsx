@@ -51,13 +51,13 @@ export default function MainLayout({ children }: PropsWithChildren) {
     return (
         <div className="min-h-screen flex flex-col  ">
             <header className="flex justify-between items-center px-2 sm:px-6 py-3 border-b-3">
-                <Link to="/" className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center">
                     <div className=" border p-1 rounded-md shadow-[3px_3px_0px_black] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.85)]">
                         <Notebook size={18} />
                     </div>
 
-                    <p className="font-bold hidden xs:block">My Journal</p>
-                </Link>
+                    <p className="font-bold cursor-default hidden xs:block">My Journal</p>
+                </div>
                 {user &&
                     <div className="relative group border-2 text-nowrap cursor-default shadow-[3px_3px_0px_black] dark:shadow-[2px_2px_0px_rgba(255,255,255,0.85)]
                                     font-bold  rounded-full flex gap-1 items-center px-2 py-0.5">
