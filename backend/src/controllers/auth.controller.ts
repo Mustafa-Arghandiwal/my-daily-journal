@@ -25,9 +25,6 @@ export const register = async (req: Request, res: Response) => {
                 errorsObject[String(key)] = issue.message
             })
             return res.status(400).json({ errors: errorsObject })
-            // errors: result.error.issues.map(issue => {
-            // 	return { [String(issue.path[0])]: issue.message }
-            // })
         }
 
         const { name, email, password } = result.data

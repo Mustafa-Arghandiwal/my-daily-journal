@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import z from "zod"
 import db from "../db"
+import { decrypt, encrypt } from '../utils/crypto'
 
 type EntryType = {
     id: number,
@@ -31,6 +32,7 @@ export const createEntry = (req: Request, res: Response) => {
 
     const { title, feeling, content } = zodResult.data
     const finalTitle = title || 'Untitled'
+    const encryptedContent = encrypt(content)
 
     type UserRow = {
         streak: number
@@ -40,7 +42,7 @@ export const createEntry = (req: Request, res: Response) => {
 
     const transaction = db.transaction(() => {
         db.prepare('INSERT INTO entries (user_id, title, feeling, content) VALUES (?, ?, ?, ?)')
-            .run(userId, finalTitle, feeling, content)
+            .run(userId, finalTitle, feeling, encryptedContent)
 
         const user = db.prepare('SELECT streak, last_entry_date, longest_streak FROM users WHERE id = ?').get(userId) as UserRow | undefined
 
@@ -82,8 +84,15 @@ export const getUserEntries = (req: Request, res: Response) => {
         return res.status(401).json({ success: false })
     }
 
-    const entries = db.prepare('SELECT id, title, feeling, content, created_at FROM entries WHERE user_id = ? ORDER BY created_at DESC').all(userId)
-    return res.status(200).json(entries)
+    const entries = db.prepare('SELECT id, title, feeling, content, created_at FROM entries WHERE user_id = ? ORDER BY created_at DESC').all(userId) as EntryType[]
+    const entriesWithDecryptedContent = entries.map(entry => {
+        const decryptedContent = decrypt(entry.content)
+        return {
+            ...entry,
+            content: decryptedContent
+        }
+    })
+    return res.status(200).json(entriesWithDecryptedContent)
 }
 
 export const deleteEntry = (req: Request, res: Response) => {
@@ -135,9 +144,10 @@ export const editEntry = (req: Request, res: Response) => {
     }
     const { title, feeling, content } = zodResult.data
     const finalTitle = title || 'Untitled'
+    const encryptedContent = encrypt(content)
 
 
-    const queryResult = db.prepare(`UPDATE entries SET title = ?, feeling = ?, content = ?, updated_at = datetime('now') WHERE id = ?`).run(finalTitle, feeling, content, entryId)
+    const queryResult = db.prepare(`UPDATE entries SET title = ?, feeling = ?, content = ?, updated_at = datetime('now') WHERE id = ?`).run(finalTitle, feeling, encryptedContent, entryId)
     if (queryResult.changes === 1) {
         return res.status(200).json({ success: true })
     } else {
