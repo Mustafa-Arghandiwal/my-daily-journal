@@ -74,7 +74,6 @@ export const login = async (req: Request, res: Response) => {
             ErrorsObject[String(key)] = issue.message
 
         })
-        console.log('hereee')
         return res.status(400).json({ errors: ErrorsObject })
 
     }
