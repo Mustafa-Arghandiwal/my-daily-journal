@@ -12,6 +12,7 @@ dotenv.config({ quiet: true })
 const SqliteStore = SqliteStoreFactory(session)
 
 const app = express()
+app.set("trust proxy", 1)
 app.use(cors({ origin: ['https://my-daily-journal-miwr.onrender.com'], credentials: true }))
 app.use(express.json())
 app.use(session({
@@ -51,5 +52,5 @@ app.get('/api/me', (req, res) => {
 
 app.use('/auth', authRoutes)
 app.use('/entries', entryRoutes)
-const PORT = process.env.port || 3000
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Servidor ejecutandose en port ${PORT}`))
