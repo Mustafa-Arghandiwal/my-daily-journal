@@ -40,8 +40,7 @@ export default function SignUpModal() {
                     setMsg(result.message)
                 }
             } else {
-                // window.location.reload()
-                console.log('signed up')
+                window.location.reload()
 
             }
         } catch (err) {
