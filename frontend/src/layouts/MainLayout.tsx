@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { Info, LogIn, Notebook, UserRound } from "lucide-react";
 import { Flame, Sun, Moon, Github, Twitter, Mail } from "lucide-react";
