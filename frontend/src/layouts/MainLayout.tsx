@@ -32,7 +32,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
 
     const logout = async () => {
-        await fetch('http://localhost:3000/auth/logout', {
+        await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
             method: "POST",
             credentials: "include"
         })

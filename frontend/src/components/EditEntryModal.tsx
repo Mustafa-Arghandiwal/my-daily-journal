@@ -23,7 +23,7 @@ export default function EditEntryModal({ entry, isEditModalOpen, setIsEditModalO
         const entryData = Object.fromEntries(formData)
 
         try {
-            const result = await fetch(`http://localhost:3000/entries/${entry.id}`, {
+            const result = await fetch(`${import.meta.env.VITE_API_URL}/entries/${entry.id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {

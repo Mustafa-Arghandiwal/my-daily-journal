@@ -17,7 +17,7 @@ export default function LoginModal() {
         const formData = new FormData(form)
         const loginData = Object.fromEntries(formData)
         try {
-            const res = await fetch('http://localhost:3000/auth/login', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
                 credentials: "include",
                 method: 'POST',
                 headers: {

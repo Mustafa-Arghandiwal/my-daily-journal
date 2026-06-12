@@ -11,7 +11,7 @@ export default function Entry({ entry, refreshEntries }: { entry: EntryType, ref
     const [isViewModalOpen, setIsViewModalOpen] = useState(false)
     const deleteEntry = async (id: number) => {
         try {
-            const result = await fetch(`http://localhost:3000/entries/${id}`, {
+            const result = await fetch(`${import.meta.env.VITE_API_URL}/entries/${id}`, {
                 method: "DELETE",
                 credentials: "include"
             })

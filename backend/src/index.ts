@@ -12,7 +12,7 @@ dotenv.config({ quiet: true })
 const SqliteStore = SqliteStoreFactory(session)
 
 const app = express()
-app.use(cors({ origin: ['http://localhost:5173'], credentials: true }))
+app.use(cors({ origin: ['https://my-daily-journal-miwr.onrender.com'], credentials: true }))
 app.use(express.json())
 app.use(session({
     store: new SqliteStore({
@@ -49,4 +49,4 @@ app.get('/api/me', (req, res) => {
 
 app.use('/auth', authRoutes)
 app.use('/entries', entryRoutes)
-app.listen(3000, () => console.log("Servidor ejecutandose en http://localhost:3000"))
+app.listen(3000, () => console.log("Servidor ejecutandose en https://my-daily-journal-backend.onrender.com:3000"))

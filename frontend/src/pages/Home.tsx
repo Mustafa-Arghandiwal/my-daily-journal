@@ -17,7 +17,7 @@ export default function Home() {
     const [entries, setEntries] = useState<EntryType[]>([])
 
     const getEntries = async () => {
-        const result = await fetch('http://localhost:3000/entries', {
+        const result = await fetch(`${import.meta.env.VITE_API_URL}/entries`, {
             method: "GET",
             credentials: "include",
             headers: {

@@ -42,7 +42,7 @@ export default function NewEntryModal({ isModalOpen, setIsModalOpen, refreshEntr
         const formData = new FormData(formElement)
         const entryData = Object.fromEntries(formData)
 
-        const result = await fetch('http://localhost:3000/entries', {
+        const result = await fetch(`${import.meta.env.VITE_API_URL}/entries`, {
             method: 'POST',
             credentials: 'include',
             headers: {
