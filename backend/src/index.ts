@@ -27,6 +27,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }))
@@ -49,4 +51,5 @@ app.get('/api/me', (req, res) => {
 
 app.use('/auth', authRoutes)
 app.use('/entries', entryRoutes)
-app.listen(3000, () => console.log("Servidor ejecutandose en https://my-daily-journal-backend.onrender.com:3000"))
+const PORT = process.env.port || 3000
+app.listen(PORT, () => console.log(`Servidor ejecutandose en port ${PORT}`))
