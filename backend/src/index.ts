@@ -13,7 +13,7 @@ const SqliteStore = SqliteStoreFactory(session)
 
 const app = express()
 app.set("trust proxy", 1)
-app.use(cors({ origin: ['https://my-daily-journal-miwr.onrender.com'], credentials: true }))
+app.use(cors({ origin: ['https://journal.arghandiwal.dev'], credentials: true }))
 app.use(express.json())
 app.use(session({
     store: new SqliteStore({
